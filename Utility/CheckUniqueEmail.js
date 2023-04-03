@@ -6,7 +6,6 @@ class CheckUniqueEmail {
   }
 
   async check() {
-    console.log("Checking Unique Email");
     const isEmail = await UserRegisterModel.find({ email: this.email });
     if (isEmail.length) {
       return false;

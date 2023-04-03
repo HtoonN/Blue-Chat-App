@@ -1,4 +1,5 @@
 const UserRegisterModel = require("../Database/Models/UserRegisterModel");
+const Hide3Keys = require("../HelperFunction/Hide3Keys");
 const SaveJWT = require("../UserClasses/JsonWebToken/SaveJWT");
 const BuildUserObj = require("../UserClasses/Register/UserRegisterClass");
 const UpdatData = require("../UserClasses/UpdateClass");
@@ -41,8 +42,7 @@ const userRegisterController = async (req, res, next) => {
           }
 
           respondDatas.error = false;
-          respondDatas.data = result;
-
+          respondDatas.data = Hide3Keys(result);
           res.send(respondDatas);
         })
         .catch((e) => {

@@ -23,8 +23,8 @@ const UserRegisterModel = new schema(
     },
 
     loginDevices: {
-      type: Array,
-      default: [],
+      type: Number,
+      default: 0,
     },
 
     notification: {
@@ -44,7 +44,7 @@ const UserRegisterModel = new schema(
 
     language: {
       type: String,
-      default: "",
+      default: "english",
     },
 
     theme: {

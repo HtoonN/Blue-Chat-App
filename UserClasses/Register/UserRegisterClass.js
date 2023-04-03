@@ -2,6 +2,7 @@ const EmailFormatValidation = require("../../HelperFunction/EmailFormatValidatio
 const {
   UsernameValidation,
 } = require("../../HelperFunction/UsernameValidation");
+const CheckUniqueEmail = require("../../Utility/CheckUniqueEmail");
 const GenerateId = require("../../Utility/GenerateId");
 const PasswordHash = require("../../Utility/PasswordHash");
 
@@ -50,6 +51,10 @@ class BuildUserObj {
 
       if (!EmailFormatValidation(email)) {
         error.email = "Email is incorrect";
+      }
+
+      if (!(await new CheckUniqueEmail(email).check())) {
+        error.email = "Email is alerady used";
       }
 
       if (JSON.stringify(error) !== "{}") {

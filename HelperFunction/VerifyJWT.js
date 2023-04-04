@@ -1,13 +1,33 @@
 const { verify } = require("jsonwebtoken");
-const config = process.env;
-
-exports.verifyAuth = (req, res, next) => {
+const LoginAuth = require("../Database/Models/LoginAuthModel");
+const verifyAuth = async (req, res, next) => {
   try {
-    const userDatas = verify(token, cprocess.env.TOKEN_KEY);
-    req.user = {
-      userId: userDatas.userId,
-      email: userDatas.email,
-    };
+    if (req.header.token) {
+      const userDatas = verify(req.header.token, process.env.TOKEN_KEY);
+
+      const verifyDatas = await LoginAuth.find({
+        userId: userDatas.userId,
+        cookie: req.header.token,
+      });
+
+      if (verifyDatas.length) {
+        req.user = {
+          userId: userDatas.userId,
+          email: userDatas.email,
+        };
+        next();
+      } else {
+        res.send({
+          error: true,
+          logOut: true,
+        });
+      }
+    } else {
+      res.send({
+        error: false,
+        data: "You Have to give token in header",
+      });
+    }
   } catch {
     (e) => {
       console.log(e);
@@ -15,3 +35,5 @@ exports.verifyAuth = (req, res, next) => {
     };
   }
 };
+
+module.exports = verifyAuth;

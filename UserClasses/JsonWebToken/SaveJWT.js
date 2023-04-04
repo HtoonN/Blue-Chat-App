@@ -1,4 +1,4 @@
-const LoginAuth = require("../../Database/Models/LoginAuth");
+const LoginAuth = require("../../Database/Models/LoginAuthModel");
 const createJWT = require("../../HelperFunction/CreateJWT");
 
 class SaveJWT {

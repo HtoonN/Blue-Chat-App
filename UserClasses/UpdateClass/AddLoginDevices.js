@@ -13,12 +13,10 @@ class AddLoginDecives {
       );
 
       return ans;
-    } catch {
-      (e) => {
-        return {
-          error: true,
-          information: e,
-        };
+    } catch (e) {
+      return {
+        error: true,
+        information: e,
       };
     }
   }

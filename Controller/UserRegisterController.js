@@ -2,7 +2,7 @@ const UserRegisterModel = require("../Database/Models/UserRegisterModel");
 const Hide3Keys = require("../HelperFunction/Hide3Keys");
 const SaveJWT = require("../UserClasses/JsonWebToken/SaveJWT");
 const BuildUserObj = require("../UserClasses/Register/UserRegisterClass");
-const UpdatData = require("../UserClasses/UpdateClass");
+const UpdateData = require("../UserClasses/UpdateClass");
 const AddLoginDecives = require("../UserClasses/UpdateClass/AddLoginDevices");
 
 const userRegisterController = async (req, res, next) => {
@@ -30,7 +30,7 @@ const userRegisterController = async (req, res, next) => {
           } else {
             //add to the logindevices to get how many machine login
             const addLoginDevicesObj = new AddLoginDecives(result.userId);
-            const addResult = await new UpdatData(
+            const addResult = await new UpdateData(
               addLoginDevicesObj
             ).doProcess();
 

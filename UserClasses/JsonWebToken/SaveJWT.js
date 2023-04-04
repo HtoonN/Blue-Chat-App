@@ -31,7 +31,7 @@ class SaveJWT {
             infromation: e,
           };
         });
-    } catch {
+    } catch (e) {
       return {
         error: true,
         information: e,

@@ -6,11 +6,15 @@ class CheckUniqueEmail {
   }
 
   async check() {
-    const isEmail = await UserRegisterModel.find({ email: this.email });
-    if (isEmail.length) {
+    try {
+      const isEmail = await UserRegisterModel.find({ email: this.email });
+      if (isEmail.length) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
       return false;
-    } else {
-      return true;
     }
   }
 }

@@ -1,7 +1,8 @@
 const express = require("express");
-const router = require("./Router/router");
 const cors = require("cors");
 const { corsConfig } = require("./Config/CorsConfig");
+const routerWithNoAuth = require("./Router/routerWithNoAuth");
+const routerWithAuth = require("./Router/routerWithAuth");
 
 // const app = express();
 
@@ -21,7 +22,8 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
 
-    this.app.use("/", router);
+    this.app.use("/api/v1/user/", routerWithNoAuth);
+    this.app.use("/api/v1/user/account/", routerWithAuth);
   }
 
   startServer(PORT) {

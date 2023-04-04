@@ -1,4 +1,4 @@
-class UpdatData {
+class UpdateData {
   constructor(obj) {
     this.obj = obj;
   }
@@ -11,12 +11,10 @@ class UpdatData {
       } else {
         return false;
       }
-    } catch {
-      (e) => {
-        return false;
-      };
+    } catch (e) {
+      return false;
     }
   }
 }
 
-module.exports = UpdatData;
+module.exports = UpdateData;

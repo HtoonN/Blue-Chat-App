@@ -12,12 +12,10 @@ class SubLoginDecives {
         { $inc: { loginDevices: Number(-1) } }
       );
       return ans;
-    } catch {
-      (e) => {
-        return {
-          error: true,
-          information: e,
-        };
+    } catch (e) {
+      return {
+        error: true,
+        information: e,
       };
     }
   }

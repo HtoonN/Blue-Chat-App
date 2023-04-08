@@ -52,4 +52,4 @@ const GroupModel = new Schema(
   }
 );
 
-module.export = new mongoose.model("groups", GroupModel);
+module.exports = new mongoose.model("groups", GroupModel);

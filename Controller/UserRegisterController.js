@@ -2,8 +2,9 @@ const UserRegisterModel = require("../Database/Models/UserRegisterModel");
 const Hide3Keys = require("../HelperFunction/Hide3Keys");
 const SaveJWT = require("../UserClasses/JsonWebToken/SaveJWT");
 const BuildUserObj = require("../UserClasses/Register/UserRegisterClass");
-const UpdateData = require("../UserClasses/UpdateClass");
-const AddLoginDecives = require("../UserClasses/UpdateClass/AddLoginDevices");
+const UpdateData = require("../UserClasses/UpdateRegisterClass");
+const AddLoginDecives = require("../UserClasses/UpdateRegisterClass/AddLoginDevices");
+const FriendsDb = require("../Utility/FriendsDb");
 
 const userRegisterController = async (req, res, next) => {
   const respondDatas = {};
@@ -22,6 +23,12 @@ const userRegisterController = async (req, res, next) => {
       userDatas
         .save()
         .then(async (result) => {
+          //create a friends collection for user
+          const friendsCollectionObj = new FriendsDb(result.userId);
+          const friendsCollectionResult =
+            await friendsCollectionObj.createFriendsCollection();
+          respondDatas.friends = friendsCollectionResult;
+
           //get cookie
           const jwtobj = new SaveJWT(result.userId, result.email);
           const cookie = await jwtobj.saveToken();
@@ -36,6 +43,10 @@ const userRegisterController = async (req, res, next) => {
 
             if (addResult) {
               respondDatas.cookie = cookie.cookie;
+              // res.cookie = res.cookie("userBlueChatApp", cookie.cookie, {
+              //   maxAge: 99704085200,
+              //   httpOnly: true,
+              // });
             } else {
               respondDatas.requireLogin = true;
             }

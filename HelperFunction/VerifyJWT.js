@@ -1,13 +1,15 @@
 const { verify } = require("jsonwebtoken");
 const LoginAuth = require("../Database/Models/LoginAuthModel");
-const verifyAuth = async (req, res, next) => {
-  try {
-    if (req.header.token) {
-      const userDatas = verify(req.header.token, process.env.TOKEN_KEY);
+const verifyJWT = async (req, res, next) => {
+  const token = req.cookies.userBlueChatApp;
+
+  if (token) {
+    try {
+      const userDatas = verify(token, process.env.TOKEN_KEY);
 
       const verifyDatas = await LoginAuth.find({
         userId: userDatas.userId,
-        cookie: req.header.token,
+        cookie: token,
       });
 
       if (verifyDatas.length) {
@@ -22,18 +24,15 @@ const verifyAuth = async (req, res, next) => {
           logOut: true,
         });
       }
-    } else {
-      res.send({
-        error: false,
-        data: "You Have to give token in header",
+    } catch (e) {
+      res.status(400).send({
+        error: true,
+        logOut: true,
       });
     }
-  } catch {
-    (e) => {
-      console.log(e);
-      next(e);
-    };
+  } else {
+    next();
   }
 };
 
-module.exports = verifyAuth;
+module.exports = verifyJWT;

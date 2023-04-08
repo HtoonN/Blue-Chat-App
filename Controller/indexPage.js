@@ -1,4 +1,4 @@
-const indexPage = (req, res) => {
+const indexPage = (req, res, next) => {
   res.send("Hello World");
 };
 

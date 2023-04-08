@@ -43,10 +43,10 @@ const userRegisterController = async (req, res, next) => {
 
             if (addResult) {
               respondDatas.cookie = cookie.cookie;
-              // res.cookie = res.cookie("userBlueChatApp", cookie.cookie, {
-              //   maxAge: 99704085200,
-              //   httpOnly: true,
-              // });
+              res.cookie = res.cookie("userBlueChatApp", cookie.cookie, {
+                maxAge: 99704085200,
+                httpOnly: true,
+              });
             } else {
               respondDatas.requireLogin = true;
             }

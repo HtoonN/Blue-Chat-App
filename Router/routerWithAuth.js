@@ -9,7 +9,7 @@ const routerWithAuth = express.Router();
 routerWithAuth.use(checkWithAuth);
 
 routerWithAuth.get(
-  "/search_friends_and_groups/:name",
+  "/search_friends_and_groups",
   SearchFriendsAndGroupsController
 );
 routerWithAuth.post("/create_group", CreateGroupController);

@@ -5,7 +5,10 @@ const SearchFriendsAndGroupsController = async (req, res) => {
   let respondDatas = { error: true };
   try {
     if (name) {
-      const searchFriendsAndGroupsObj = new SearchFriendsAndGroups(name);
+      const searchFriendsAndGroupsObj = new SearchFriendsAndGroups(
+        name,
+        req.user.userId
+      );
       const getFriendsList = await searchFriendsAndGroupsObj.searchFriends();
       const getGroupsList = await searchFriendsAndGroupsObj.searchGroups();
       if (!getFriendsList.error) {

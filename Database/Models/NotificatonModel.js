@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 const NotificationModel = new Schema(
   {
-    nId: {
-      type: String,
-      required: true,
-    },
     text: {
       type: String,
       required: true,

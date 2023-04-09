@@ -2,16 +2,16 @@ const GroupModel = require("../../Database/Models/GroupModel");
 const UserRegisterModel = require("../../Database/Models/UserRegisterModel");
 
 class SearchFriendsAndGroups {
-  constructor(name) {
+  constructor(name, userId) {
+    this.userId = userId;
     this.name = name;
     this.reg = new RegExp(`${this.name}`, "i");
   }
 
   async searchFriends() {
-    console.log(this.reg);
     try {
       const getFriends = await UserRegisterModel.find(
-        { username: this.reg },
+        { $and: [{ username: this.reg }, { userId: { $ne: this.userId } }] },
         { username: 1, userId: 1, profileImage: 1, _id: 0 }
       );
 

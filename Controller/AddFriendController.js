@@ -1,8 +1,8 @@
 const AddFriend = require("../UserClasses/Friends/AddFriend");
 
 const addFriendController = async (req, res) => {
-  const reqUser = req.user.userId;
-  const acceptUser = req.params.friId;
+  const reqUser = req.user.userId.toString();
+  const acceptUser = req.params.friId.toString();
 
   if (reqUser && acceptUser) {
     try {

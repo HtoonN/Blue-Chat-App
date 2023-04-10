@@ -1,15 +1,17 @@
 const UserRegisterModel = require("../Database/Models/UserRegisterModel");
 const Hide3Keys = require("../HelperFunction/Hide3Keys");
+const CreateFriend = require("../UserClasses/Friends/CreateFriend");
 const SaveJWT = require("../UserClasses/JsonWebToken/SaveJWT");
 const BuildUserObj = require("../UserClasses/Register/UserRegisterClass");
 const UpdateData = require("../UserClasses/UpdateRegisterClass");
 const AddLoginDecives = require("../UserClasses/UpdateRegisterClass/AddLoginDevices");
-const FriendsDb = require("../Utility/FriendsDb");
 
 const userRegisterController = async (req, res, next) => {
   const respondDatas = {};
   try {
-    const { username, password, email } = req.body.data;
+    const username = req.body.data.username.toString();
+    const password = req.body.data.password.toString();
+    const email = req.body.data.email.toString();
     const userObj = new BuildUserObj();
     //check userdata and get as a object
     const resData = await userObj.addUserData(username, password, email);
@@ -24,7 +26,7 @@ const userRegisterController = async (req, res, next) => {
         .save()
         .then(async (result) => {
           //create a friends collection for user
-          const friendsCollectionObj = new FriendsDb(result.userId);
+          const friendsCollectionObj = new CreateFriend(result.userId);
           const friendsCollectionResult =
             await friendsCollectionObj.createFriendsCollection();
           respondDatas.friends = friendsCollectionResult;

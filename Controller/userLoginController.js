@@ -6,7 +6,8 @@ const UpdateData = require("../UserClasses/UpdateRegisterClass");
 
 const userLoginController = async (req, res, next) => {
   const respondDatas = {};
-  const { email, password } = req.body.data;
+  const email = req.body.data.email.toString();
+  const password = req.body.data.password.toString();
   try {
     if (email && password) {
       const checkObj = new CheckEmailandPassword(email, password);

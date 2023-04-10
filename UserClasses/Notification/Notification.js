@@ -1,5 +1,4 @@
 const NotificatonModel = require("../../Database/Models/NotificatonModel");
-const GenerateId = require("../../Utility/GenerateId");
 
 class Notification {
   constructor({ id, header, info }) {

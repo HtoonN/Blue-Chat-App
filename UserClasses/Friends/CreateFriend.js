@@ -1,6 +1,6 @@
-const FriendsModel = require("../Database/Models/FriendsModel");
+const FriendsModel = require("../../Database/Models/FriendsModel");
 
-class FriendsDb {
+class CreateFriend {
   constructor(userId) {
     this.userId = userId;
   }
@@ -33,4 +33,4 @@ class FriendsDb {
   }
 }
 
-module.exports = FriendsDb;
+module.exports = CreateFriend;

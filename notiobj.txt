@@ -1,0 +1,9 @@
+ const notiObj = {
+        header: "Friend request",
+        info: `You received a friend request at ${
+          new Date().toString().split(" GMT")[0]
+        }`,
+        id: this.friendId,
+      };
+
+      await new Notification(notiObj).addNotification();

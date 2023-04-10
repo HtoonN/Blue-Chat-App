@@ -1,7 +1,7 @@
 const SearchFriendsAndGroups = require("../UserClasses/SearchFrinedsAndGroup/SearchFriendsAndGroups");
 
 const SearchFriendsAndGroupsController = async (req, res) => {
-  const name = req.query.name;
+  const name = req.query.name.toString();
   let respondDatas = { error: true };
   try {
     if (name) {

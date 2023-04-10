@@ -3,8 +3,8 @@ const UpdateData = require("../UserClasses/UpdateRegisterClass");
 const UpdateGroup = require("../UserClasses/UpdateRegisterClass/UpdateGroup");
 
 const CreateGroupController = async (req, res, next) => {
-  const { userId } = req.user;
-  const { name } = req.body.data;
+  const userId = req.user.usrId.toString();
+  const name = req.body.data.name.toString();
 
   try {
     if (name && userId) {

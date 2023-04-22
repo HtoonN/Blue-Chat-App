@@ -1,28 +1,21 @@
 const socketIo = require("socket.io");
 const socketCorsConfig = require("../Config/socketCorsConfig");
-const initializeUser = require("./SocketInitializedUser");
+const socketAuth = require("./Middleware/SocketAuth");
+const socketController = require("./SocketController/SocketController");
 
 class CreateIo {
   constructor(app) {
     this.io = socketIo(app, {
       cors: socketCorsConfig,
     });
+    this.io.use(socketAuth);
   }
 
   connect() {
     console.log("Socket is started");
+
     this.io.on("connection", (socket) => {
-      initializeUser(socket);
-
-      socket.on("message", (msg) => {
-        console.log(msg);
-        this.io.to(msg.room).emit("receive", `${msg.msg}`);
-      });
-
-      socket.on("disconnect", () => {
-        console.log("A user is disconnected");
-        console.log(socket.handshake.auth.userId);
-      });
+      socketController(socket, this.io);
     });
   }
 }

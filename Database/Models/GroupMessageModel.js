@@ -13,7 +13,7 @@ const GroupMessage = new Schema(
       required: true,
     },
 
-    attachfile: {
+    attachFiles: {
       type: Array,
       default: [],
     },

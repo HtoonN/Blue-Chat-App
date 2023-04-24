@@ -13,9 +13,8 @@ class CreateIo {
 
   connect() {
     console.log("Socket is started");
-
-    this.io.on("connection", (socket) => {
-      socketController(socket, this.io);
+    this.io.on("connection", async (socket) => {
+      await socketController(socket, this.io);
     });
   }
 }

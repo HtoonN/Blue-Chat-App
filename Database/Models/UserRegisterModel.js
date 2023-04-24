@@ -12,6 +12,11 @@ const UserRegisterModel = new schema(
       required: true,
     },
 
+    status: {
+      type: Boolean,
+      default: false,
+    },
+
     email: {
       type: String,
       required: true,

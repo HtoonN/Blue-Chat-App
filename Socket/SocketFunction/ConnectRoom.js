@@ -1,7 +1,7 @@
-const connectRoom = (roomId, io, socket) => {
+const connectRoom = (roomId, socket) => {
   try {
     socket.join(roomId);
-    io.to(roomId).emit("connected-to-room", "connected");
+    socket.emit("connected-to-room", "connected");
   } catch (err) {
     console.log(err);
   }

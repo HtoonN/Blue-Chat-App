@@ -1,13 +1,11 @@
+const checkJwtForSocket = require("../../Utility/CheckJWTforSocket");
+
 const socketAuth = (socket, next) => {
-  const token = socket.handshake.auth.userId;
+  const token = socket.handshake.auth.token;
   if (token) {
-    socket.user = {
-      userId: token,
-    };
-    console.log(token);
-    next();
+    checkJwtForSocket(token, socket, next);
   } else {
-    console.log("error for auth socket");
+    console.log("auth error");
     // next(new error("Error"));
   }
 };

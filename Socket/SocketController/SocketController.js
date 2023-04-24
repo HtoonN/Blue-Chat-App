@@ -6,14 +6,14 @@ const messageSeen = require("../SocketFunction/MessageSeen");
 const message = require("../SocketFunction/message");
 const initializeUser = require("../SocketInitializedUser");
 
-const socketController = (socket, io) => {
+const socketController = async (socket, io) => {
   let fileInformation = { data: "" };
   let data = {};
 
-  initializeUser(socket);
+  await initializeUser(socket, io);
 
   socket.on("connect-to-room", (roomid) => {
-    connectRoom(roomid, io, socket);
+    connectRoom(roomid, socket);
   });
 
   socket.on("message", async (rawData) => {
@@ -49,8 +49,8 @@ const socketController = (socket, io) => {
     socket.emit("testing-reply", {});
   });
 
-  socket.on("disconnect", () => {
-    disconnect(socket);
+  socket.on("disconnect", async () => {
+    await disconnect(socket, io);
   });
 };
 module.exports = socketController;

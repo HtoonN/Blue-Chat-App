@@ -1,4 +1,5 @@
 const LoginAuthModel = require("../Database/Models/LoginAuthModel");
+const SubLoginDecives = require("../UserClasses/UpdateRegisterClass/SubLoginDevices");
 
 const userLogOutController = async (req, res) => {
   const cookie = req.cookies.userBlueChatApp;
@@ -10,6 +11,8 @@ const userLogOutController = async (req, res) => {
   });
 
   if (acknowledged && deletedCount === 1) {
+    await new SubLoginDecives(userId).update();
+
     res.cookie = res.cookie("userBlueChatApp", cookie, {
       maxAge: 0,
       httpOnly: true,

@@ -10,6 +10,7 @@ const AcceptGroupController = require("../Controller/AcceptGroup");
 const indexPage = require("../Controller/indexPage");
 const getImage = require("../Controller/GetImage");
 const userLogOutController = require("../Controller/userLogOutController");
+const updateUserDatas = require("../Controller/UpdateUserDatas");
 
 const routerWithAuth = express.Router();
 
@@ -26,5 +27,6 @@ routerWithAuth.get("/add_group/:groupId", AddGroupController);
 routerWithAuth.get("/accept_friend/:friendId", AcceptFriendController);
 routerWithAuth.post("/accept_group", AcceptGroupController);
 routerWithAuth.get("/logout", userLogOutController);
+routerWithAuth.get("/update_user_datas", updateUserDatas);
 
 module.exports = routerWithAuth;

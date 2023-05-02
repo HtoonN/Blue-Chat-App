@@ -1,5 +1,5 @@
 exports.corsConfig = {
-  origin: ["*"],
+  origin: "*",
   methods: ["GET", "POST", "DELETE", "PATCH"],
   credentials: true,
 };

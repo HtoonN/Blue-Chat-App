@@ -15,14 +15,23 @@ const checkJWT = async (token, res, req, next) => {
         userId: userDatas.userId,
         email: userDatas.email,
       };
+
       next();
     } else {
-      res.send({
+      res.cookie = res.cookie("userBlueChatApp", token, {
+        maxAge: 0,
+        httpOnly: true,
+      });
+      res.status(400).send({
         error: true,
         logOut: true,
       });
     }
   } catch (e) {
+    res.cookie = res.cookie("userBlueChatApp", token, {
+      maxAge: 0,
+      httpOnly: true,
+    });
     res.status(400).send({
       error: true,
       informaiton: "Try Again",

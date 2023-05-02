@@ -7,7 +7,7 @@ const fileData = async (fileInformation, data, io, sendFileData, socket) => {
     fileInformation.data += sendFileData.data;
 
     if (fileInformation.length === fileInformation.data.length) {
-      io.to(socket.user.userId).emit("file-complete", "Success!");
+      socket.emit("file-complete", "Success!");
       //save file to the server
       const filename = `saveFileBlueChatApp${Date.now()}${
         fileInformation.filename
@@ -36,9 +36,9 @@ const fileData = async (fileInformation, data, io, sendFileData, socket) => {
       data.attachFiles = attachFileObj;
 
       //save data to the database
-      await messageController(data, io);
+      await messageController(socket, data, io);
     } else {
-      io.to(socket.user.userId).emit("request-more-data", {
+      socket.emit("request-more-data", {
         filename: fileInformation.filename,
         receiveDataSize: fileInformation.data.length,
       });

@@ -1,6 +1,6 @@
 const SaveMessage = require("../../UserClasses/Chat/SaveMessage");
 
-const messageController = async (obj, sendIo) => {
+const messageController = async (socket, obj, sendIo) => {
   const sender = obj.sender.toString();
   const receiver = obj.receiver.toString();
   const message = obj.text.toString();
@@ -18,7 +18,7 @@ const messageController = async (obj, sendIo) => {
       }).savePersonalMessage();
 
       io.to(obj.receiver).emit("receive-message-from-friend", result);
-      io.to(obj.sender).emit("send-message-successful", result);
+      socket.emit("send-message-successful", result);
     } else if (type === "GM") {
       const result = await new SaveMessage({
         sender,
@@ -28,7 +28,7 @@ const messageController = async (obj, sendIo) => {
       }).saveGroupMessage();
 
       io.to(obj.receiver).emit("receive-message-from-group", result);
-      io.to(obj.sender).emit("send-message-successful", result);
+      socket.emit("send-message-successful", result);
     }
   } else {
     if (type === "PM") {
@@ -39,7 +39,7 @@ const messageController = async (obj, sendIo) => {
       }).savePersonalMessage();
 
       io.to(obj.receiver).emit("receive-message-from-friend", result);
-      io.to(obj.sender).emit("send-message-successful", result);
+      socket.emit("send-message-successful", result);
     } else if (type === "GM") {
       const result = await new SaveMessage({
         sender,
@@ -48,9 +48,9 @@ const messageController = async (obj, sendIo) => {
       }).saveGroupMessage();
 
       io.to(obj.receiver).emit("receive-message-from-group", result);
-      io.to(obj.sender).emit("send-message-successful", result);
+      socket.emit("send-message-successful", result);
     } else {
-      io.to(obj.sender).emit("error", "You have to send PM or GM");
+      socket.emit("error", "You have to send PM or GM");
     }
   }
 };

@@ -5,6 +5,8 @@ const routerWithNoAuth = require("./Router/routerWithNoAuth");
 const routerWithAuth = require("./Router/routerWithAuth");
 const cookieParser = require("cookie-parser");
 const verifyJWT = require("./HelperFunction/VerifyJWT");
+const routerWithToken = require("./Router/routerWithtoken");
+const tokenParser = require("./HelperFunction/TokenParser");
 
 // const app = express();
 
@@ -26,9 +28,11 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(verifyJWT);
+    this.app.use(tokenParser);
 
     this.app.use("/api/v1/normal/user", routerWithNoAuth);
     this.app.use("/api/v1/account/user", routerWithAuth);
+    this.app.use("/api/v1/token/file", routerWithToken);
   }
 
   getExpressServer() {

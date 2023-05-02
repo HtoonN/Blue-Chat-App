@@ -9,7 +9,7 @@ const message = async (fileInformation, data, io, socket) => {
       fileInformation.size = data.attachFiles.size;
       fileInformation.length = data.attachFiles.length;
 
-      io.to(socket.user.userId).emit("request-more-data", data);
+      socket.emit("request-more-data", data);
     } else if (
       data.attachFiles.type === "video" &&
       data.attachFiles.size < 104857600
@@ -20,16 +20,16 @@ const message = async (fileInformation, data, io, socket) => {
       fileInformation.size = data.attachFiles.size;
       fileInformation.length = data.attachFiles.length;
 
-      io.to(socket.user.userId).emit("request-more-data", data);
+      socket.emit("request-more-data", data);
     } else {
-      io.to(socket.user.userId).emit(
+      socket.emit(
         "send-file-error",
         "File Size is larger than limit image file must be less than 10 mb and video file must be less then 100mb"
       );
     }
   } else {
     data.attachFiles = null;
-    await messageController(data, io);
+    await messageController(socket, data, io);
   }
 };
 module.exports = message;

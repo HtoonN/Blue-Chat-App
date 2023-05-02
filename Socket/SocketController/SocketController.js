@@ -3,6 +3,7 @@ const disconnect = require("../SocketFunction/Disconnect");
 const fileData = require("../SocketFunction/FileData");
 const messageDelievered = require("../SocketFunction/MessageDelievered");
 const messageSeen = require("../SocketFunction/MessageSeen");
+const notificationToFriend = require("../SocketFunction/NotificationToFriend");
 const message = require("../SocketFunction/message");
 const initializeUser = require("../SocketInitializedUser");
 
@@ -43,6 +44,10 @@ const socketController = async (socket, io) => {
 
   socket.on("message-seen", async (msg) => {
     await messageSeen(msg, io, socket);
+  });
+
+  socket.on("notification-to-friend", (msg) => {
+    notificationToFriend(msg, io);
   });
 
   socket.on("testing", (msg) => {

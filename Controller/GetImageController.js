@@ -2,8 +2,10 @@ const DownLoadFile = require("../HelperFunction/DownloadFile");
 const searchFileinServer = require("../HelperFunction/SearchFileinServer");
 const sendFileToUser = require("../Utility/SendFileToUser");
 
-const getImage = async (req, res, next) => {
-  const { public_id, format, version, type } = req.body.data;
+const getImageController = async (req, res, next) => {
+  const { format, version, type } = req.params;
+  const public_id = req.params.public_id.toString().replace("_", "/");
+
   if (type === "image") {
     const fileName = `${public_id.toString().split("/")[1]}.${format}`;
 
@@ -30,4 +32,4 @@ const getImage = async (req, res, next) => {
     res.status(400);
   }
 };
-module.exports = getImage;
+module.exports = getImageController;

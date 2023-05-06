@@ -7,10 +7,16 @@ const addFriendController = require("../Controller/AddFriendController");
 const AddGroupController = require("../Controller/AddGroupController");
 const AcceptFriendController = require("../Controller/AcceptFriend");
 const AcceptGroupController = require("../Controller/AcceptGroup");
-const indexPage = require("../Controller/indexPage");
-const getImage = require("../Controller/GetImage");
 const userLogOutController = require("../Controller/userLogOutController");
 const updateUserDatas = require("../Controller/UpdateUserDatas");
+const GetChatMessagesWithFriendController = require("../Controller/GetChatMessagesWithFriendController");
+const deletePersonalMessageController = require("../Controller/DeletePersonalMessageController");
+const getImageController = require("../Controller/GetImageController");
+const getAllFriendsDatasController = require("../Controller/GetAllFrinedsDatasController");
+const setMessageFriendController = require("../Controller/SetMessageFriendController");
+const removeMessageFriendController = require("../Controller/RemoveMessageFriendController");
+const blockUserController = require("../Controller/BlockUserController");
+const unBlockUserController = require("../Controller/UnBlockUserController");
 
 const routerWithAuth = express.Router();
 
@@ -20,13 +26,31 @@ routerWithAuth.get(
   "/search_friends_and_groups",
   SearchFriendsAndGroupsController
 );
-routerWithAuth.post("/get_image", getImage);
+routerWithAuth.get(
+  "/get_image/:public_id/:version/:format/:type",
+  getImageController
+);
 routerWithAuth.post("/create_group", CreateGroupController);
-routerWithAuth.get("/add_friend/:friId", addFriendController);
-routerWithAuth.get("/add_group/:groupId", AddGroupController);
-routerWithAuth.get("/accept_friend/:friendId", AcceptFriendController);
-routerWithAuth.post("/accept_group", AcceptGroupController);
-routerWithAuth.get("/logout", userLogOutController);
-routerWithAuth.get("/update_user_datas", updateUserDatas);
-
+routerWithAuth.patch("/add_friend/:friId", addFriendController);
+routerWithAuth.patch("/add_group/:groupId", AddGroupController);
+routerWithAuth.patch("/accept_friend/:friendId", AcceptFriendController);
+routerWithAuth.patch("/accept_group", AcceptGroupController);
+routerWithAuth.delete("/logout", userLogOutController);
+routerWithAuth.get(
+  "/get_updated_user_datas_and_update_user_age",
+  updateUserDatas
+);
+routerWithAuth.get(
+  "/get_messages_with_friend/:friId",
+  GetChatMessagesWithFriendController
+);
+routerWithAuth.delete(
+  "/delete_personal_message/:msgId",
+  deletePersonalMessageController
+);
+routerWithAuth.get("/get_all_friends_datas", getAllFriendsDatasController);
+routerWithAuth.patch("/set_message_friend", setMessageFriendController);
+routerWithAuth.patch("/remove_message_friend", removeMessageFriendController);
+routerWithAuth.patch("/block_user", blockUserController);
+routerWithAuth.patch("/unblock_user", unBlockUserController);
 module.exports = routerWithAuth;

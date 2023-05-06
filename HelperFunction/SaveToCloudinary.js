@@ -37,6 +37,16 @@ class ManageCloudinary {
       };
     }
   }
+
+  async imageDeleteToCloudinary(public_id) {
+    return await cloudinary.uploader.destroy(public_id);
+  }
+
+  async videoDeleteToCloudinary(public_id) {
+    return await cloudinary.uploader.destroy(public_id, {
+      resource_type: "video",
+    });
+  }
 }
 
 module.exports = ManageCloudinary;

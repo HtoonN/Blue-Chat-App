@@ -10,7 +10,7 @@ class AcceptFriend {
   async accept() {
     try {
       await FriendsModel.updateOne(
-        { userId: this.userId },
+        { userId: this.userId, "requested.list": { $in: this.friendId } },
         {
           $addToSet: {
             friends: this.friendId,
@@ -21,7 +21,7 @@ class AcceptFriend {
       );
 
       await FriendsModel.updateOne(
-        { userId: this.friendId },
+        { userId: this.friendId, "add.list": { $in: this.userId } },
         {
           $addToSet: {
             friends: this.userId,

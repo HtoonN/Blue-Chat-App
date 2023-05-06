@@ -7,8 +7,9 @@ const blockUserController = async (req, res) => {
 
   if (userId && friendId && status.toString()) {
     const result = await new ManageBlockList(userId, friendId, status).block();
+
     if (!res.error) {
-      res.status(200).json(result);
+      res.status(201).json(result);
     } else {
       res.status(500).json(result);
     }

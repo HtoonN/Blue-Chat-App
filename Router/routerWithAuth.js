@@ -17,6 +17,7 @@ const setMessageFriendController = require("../Controller/SetMessageFriendContro
 const removeMessageFriendController = require("../Controller/RemoveMessageFriendController");
 const blockUserController = require("../Controller/BlockUserController");
 const unBlockUserController = require("../Controller/UnBlockUserController");
+const unFriendController = require("../Controller/UnFriendController");
 
 const routerWithAuth = express.Router();
 
@@ -53,4 +54,6 @@ routerWithAuth.patch("/set_message_friend", setMessageFriendController);
 routerWithAuth.patch("/remove_message_friend", removeMessageFriendController);
 routerWithAuth.patch("/block_user", blockUserController);
 routerWithAuth.patch("/unblock_user", unBlockUserController);
+routerWithAuth.patch("/unfriend_user", unFriendController);
+
 module.exports = routerWithAuth;

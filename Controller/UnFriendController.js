@@ -1,10 +1,11 @@
-const ManageBlockList = require("../UserClasses/Friends/ManageBlockList");
+const Unfriend = require("../UserClasses/Friends/UnFriend");
 
-const unBlockUserController = async (req, res) => {
+const unFriendController = async (req, res) => {
   const userId = req.user.userId;
   const friendId = req.body.data.friendId.toString();
+
   if (userId && friendId) {
-    const result = await new ManageBlockList(userId, friendId).unBlock();
+    const result = await new Unfriend(userId, friendId).do();
     if (!result.error) {
       res.status(201).json(result);
     } else {
@@ -14,4 +15,4 @@ const unBlockUserController = async (req, res) => {
     res.sendStatus(400);
   }
 };
-module.exports = unBlockUserController;
+module.exports = unFriendController;

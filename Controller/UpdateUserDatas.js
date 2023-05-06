@@ -14,7 +14,7 @@ const updateUserDatas = async (req, res) => {
       updatedAt: 0,
       _id: 0,
       __v: 0,
-      // "blockedFriends.getBlocked": 0,
+      "blockedFriends.getBlocked": 0,
       createdAt: 0,
       userId: 0,
     }

@@ -3,7 +3,7 @@ const UpdateData = require("../UserClasses/UpdateRegisterClass");
 const UpdateGroup = require("../UserClasses/UpdateRegisterClass/UpdateGroup");
 
 const CreateGroupController = async (req, res, next) => {
-  const userId = req.user.usrId.toString();
+  const userId = req.user.userId.toString();
   const name = req.body.data.name.toString();
 
   try {
@@ -14,7 +14,11 @@ const CreateGroupController = async (req, res, next) => {
       if (groupDatas.error) {
         res.sendStatus(500);
       } else {
-        const updateGroupObj = new UpdateGroup(userId, groupDatas.data.groupId);
+        const updateGroupObj = new UpdateGroup(
+          userId,
+          groupDatas.data.groupId,
+          "owner"
+        );
         const updateGroup = new UpdateData(updateGroupObj);
         const updateGroupResult = await updateGroup.doProcess();
         if (updateGroupResult) {

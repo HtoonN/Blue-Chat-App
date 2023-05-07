@@ -1,5 +1,6 @@
 const FriendsModel = require("../../Database/Models/FriendsModel");
 const GroupModel = require("../../Database/Models/GroupModel");
+const UserRegisterModel = require("../../Database/Models/UserRegisterModel");
 const checkUpdateSuccess = require("../../Utility/CheckUpdateSuccess");
 const Notification = require("../Notification/Notification");
 
@@ -27,12 +28,18 @@ class AcceptGroup {
         }
       );
       if (checkUpdateSuccess(result)) {
-        await FriendsModel.updateOne(
+        await UserRegisterModel.updateOne(
           { userId: this.memberId },
           {
             $push: {
-              groups: this.groupId,
+              groups: { id: this.groupId, status: "member" },
             },
+          }
+        );
+
+        await FriendsModel.updateOne(
+          { userId: this.memberId },
+          {
             $pull: {
               "add.list": this.groupId,
             },

@@ -1,4 +1,3 @@
-const Hide3Keys = require("../HelperFunction/Hide3Keys");
 const SaveJWT = require("../UserClasses/JsonWebToken/SaveJWT");
 const AddLoginDecives = require("../UserClasses/UpdateRegisterClass/AddLoginDevices");
 const CheckEmailandPassword = require("../Utility/CheckEmailandPassword");

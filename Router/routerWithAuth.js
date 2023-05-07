@@ -19,6 +19,7 @@ const blockUserController = require("../Controller/BlockUserController");
 const unBlockUserController = require("../Controller/UnBlockUserController");
 const unFriendController = require("../Controller/UnFriendController");
 const getGroupDatas = require("../Controller/GetGroupDatas");
+const addMemberByAdminController = require("../Controller/AddMemberByAdminController");
 
 const routerWithAuth = express.Router();
 
@@ -57,5 +58,9 @@ routerWithAuth.patch("/block_user", blockUserController);
 routerWithAuth.patch("/unblock_user", unBlockUserController);
 routerWithAuth.patch("/unfriend_user", unFriendController);
 routerWithAuth.get("/get_group_data/:groupId/:flag", getGroupDatas);
+routerWithAuth.patch(
+  "/add_member_by_admin/:groupId/:memberId",
+  addMemberByAdminController
+);
 
 module.exports = routerWithAuth;

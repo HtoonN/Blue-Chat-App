@@ -30,7 +30,7 @@ class GetAllMessageWithFriendId {
         { updatedAt: 0, __v: 0, deletedBy: 0 },
         { skip: skip, limit: this.pageSize }
       );
-      console.log(allMessages.length);
+
       if (allMessages.length) {
         return {
           error: false,

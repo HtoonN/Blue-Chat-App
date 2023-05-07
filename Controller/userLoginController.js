@@ -39,7 +39,7 @@ const userLoginController = async (req, res, next) => {
           }
         }
         respondDatas.error = false;
-        respondDatas.data = Hide3Keys(checkResult.data);
+        respondDatas.data = checkResult.data;
         res.status(200).json(respondDatas);
       } else {
         res.status(400).json(checkResult);

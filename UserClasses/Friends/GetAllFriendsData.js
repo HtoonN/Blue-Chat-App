@@ -36,6 +36,14 @@ class GetAllFriendsDatas {
     const end = this.pageSize * this.pageNumber;
 
     const resultArray = allFriends.friends.slice(start, end);
+    const nextPage = this.pageNumber + 1 > pages ? 1 : this.pageNumber + 1;
+
+    const metadata = {
+      totalPage: pages,
+      nextPage: this.pageNumber + 1 > pages ? false : this.pageNumber + 1,
+      previousPage: this.pageNumber - 1 > 0 ? this.pageNumber - 1 : false,
+      currentPage: this.pageNumber,
+    };
 
     await Promise.all(
       resultArray.map(async (userId) => {
@@ -43,12 +51,16 @@ class GetAllFriendsDatas {
           { userId },
           { userId: 1, username: 1, profileImage: 1, _id: 0, status: 1 }
         );
+
         this.friendArray.push(result);
       })
     );
     return {
       error: false,
-      data: this.friendArray,
+      data: {
+        metadata,
+        data: this.friendArray,
+      },
     };
   }
 }

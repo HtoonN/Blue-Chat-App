@@ -1,9 +1,9 @@
-const Hide3Keys = (obj) => {
-  obj.password = null;
-  obj._id = null;
-  obj.updatedAt = null;
-  obj.loginDevices = Number(obj.loginDevices) + 1;
+const Hide3Keys = (userObj) => {
+  userObj.password = null;
+  userObj._id = null;
+  userObj.__v = null;
+  userObj.updatedAt = null;
 
-  return obj;
+  return userObj;
 };
 module.exports = Hide3Keys;

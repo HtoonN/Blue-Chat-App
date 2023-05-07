@@ -9,9 +9,19 @@ class CheckEmailandPassword {
 
   async checkEmailandPassword() {
     try {
-      const userDatas = await UserRegisterModel.find({ email: this.email });
+      const userDatas = await UserRegisterModel.find(
+        { email: this.email },
+        { _id: 0, updatedAt: 0, __v: 0, password: 0 }
+      );
+
       if (userDatas.length) {
-        const result = this.checkPassword(userDatas[0].password);
+        const password = await UserRegisterModel.find(
+          { email: this.email },
+          { _id: 0, password: 1 }
+        );
+
+        const result = this.checkPassword(password[0].password);
+
         if (result) {
           return {
             error: false,

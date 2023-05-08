@@ -20,6 +20,7 @@ const unBlockUserController = require("../Controller/UnBlockUserController");
 const unFriendController = require("../Controller/UnFriendController");
 const getGroupDatas = require("../Controller/GetGroupDatas");
 const addMemberByAdminController = require("../Controller/AddMemberByAdminController");
+const removeFromGroupController = require("../Controller/RemoveFromGroupContoller");
 
 const routerWithAuth = express.Router();
 
@@ -62,5 +63,6 @@ routerWithAuth.patch(
   "/add_member_by_admin/:groupId/:memberId",
   addMemberByAdminController
 );
+routerWithAuth.patch("/remove_from_group", removeFromGroupController);
 
 module.exports = routerWithAuth;

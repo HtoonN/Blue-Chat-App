@@ -1,5 +1,6 @@
 const GroupModel = require("../../Database/Models/GroupModel");
 const UserRegisterModel = require("../../Database/Models/UserRegisterModel");
+const checkUpdateSuccess = require("../../Utility/CheckUpdateSuccess");
 const Notification = require("../Notification/Notification");
 
 class AddMemberByAdmin {
@@ -10,7 +11,7 @@ class AddMemberByAdmin {
   }
 
   async addMember() {
-    await GroupModel.updateOne(
+    const result = await GroupModel.updateOne(
       {
         groupId: this.groupId,
         admin: { $elemMatch: { id: this.userId } },
@@ -29,11 +30,14 @@ class AddMemberByAdmin {
       { $addToSet: { groups: { id: this.groupId, status: "member" } } }
     );
 
-    await new Notification({
-      id: this.memberId,
-      header: "Add To Group",
-      info: `add to group ${this.groupId}`,
-    }).addNotification();
+    if (checkUpdateSuccess(result)) {
+      console.log("add nonti");
+      await new Notification({
+        id: this.memberId,
+        header: "Add To Group",
+        info: `add to group ${this.groupId}`,
+      }).addNotification();
+    }
 
     return {
       error: false,

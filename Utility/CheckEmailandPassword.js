@@ -20,7 +20,7 @@ class CheckEmailandPassword {
           { _id: 0, password: 1 }
         );
 
-        const result = this.checkPassword(password[0].password);
+        const result = await this.checkPassword(password[0].password);
 
         if (result) {
           return {
@@ -47,9 +47,13 @@ class CheckEmailandPassword {
     }
   }
 
-  checkPassword(getPassword) {
+  async checkPassword(getPassword) {
     try {
-      const passwordCheckResult = PasswordVerify(this.password, getPassword);
+      const passwordCheckResult = await PasswordVerify(
+        this.password,
+        getPassword
+      );
+
       if (passwordCheckResult) {
         return true;
       } else {

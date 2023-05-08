@@ -14,7 +14,11 @@ class AcceptGroup {
   async accept() {
     try {
       const result = await GroupModel.updateOne(
-        { groupId: this.groupId, admin: { $elemMatch: { id: this.adminId } } },
+        {
+          groupId: this.groupId,
+          admin: { $elemMatch: { id: this.adminId } },
+          requested: { $in: this.memberId },
+        },
         {
           $addToSet: {
             "members.memberList": this.memberId,
@@ -27,6 +31,7 @@ class AcceptGroup {
           },
         }
       );
+
       if (checkUpdateSuccess(result)) {
         await UserRegisterModel.updateOne(
           { userId: this.memberId },

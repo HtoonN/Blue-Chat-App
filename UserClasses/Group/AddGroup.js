@@ -9,8 +9,8 @@ class AddGroup {
   }
   async add() {
     try {
-      await GroupModel.updateOne(
-        { groupId: this.groupId },
+      const ans = await GroupModel.updateOne(
+        { groupId: this.groupId, "members.memberList": { $nin: this.userId } },
         {
           $addToSet: { requested: this.userId },
         }

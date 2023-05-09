@@ -11,38 +11,44 @@ class AddMemberByAdmin {
   }
 
   async addMember() {
-    const result = await GroupModel.updateOne(
-      {
-        groupId: this.groupId,
-        admin: { $elemMatch: { id: this.userId } },
-        "members.memberList": { $nin: this.memberId },
-      },
-      {
-        $addToSet: { "members.memberList": this.memberId },
-        $inc: {
-          "members.totalMember": Number(1),
+    try {
+      const result = await GroupModel.updateOne(
+        {
+          groupId: this.groupId,
+          admin: { $elemMatch: { id: this.userId } },
+          "members.memberList": { $nin: this.memberId },
         },
+        {
+          $addToSet: { "members.memberList": this.memberId },
+          $inc: {
+            "members.totalMember": Number(1),
+          },
+        }
+      );
+
+      await UserRegisterModel.updateOne(
+        { userId: this.memberId },
+        { $addToSet: { groups: { id: this.groupId, status: "member" } } }
+      );
+
+      if (checkUpdateSuccess(result)) {
+        await new Notification({
+          id: this.memberId,
+          header: "Add To Group",
+          info: `add to group ${this.groupId}`,
+        }).addNotification();
       }
-    );
 
-    await UserRegisterModel.updateOne(
-      { userId: this.memberId },
-      { $addToSet: { groups: { id: this.groupId, status: "member" } } }
-    );
-
-    if (checkUpdateSuccess(result)) {
-      console.log("add nonti");
-      await new Notification({
-        id: this.memberId,
-        header: "Add To Group",
-        info: `add to group ${this.groupId}`,
-      }).addNotification();
+      return {
+        error: false,
+        information: "Success",
+      };
+    } catch (e) {
+      return {
+        error: true,
+        information: "Try Again",
+      };
     }
-
-    return {
-      error: false,
-      information: "Success",
-    };
   }
 }
 module.exports = AddMemberByAdmin;

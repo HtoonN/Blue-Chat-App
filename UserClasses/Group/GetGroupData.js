@@ -34,7 +34,7 @@ class GetGroupDatas {
     } catch (e) {
       return {
         error: true,
-        information: e,
+        information: "Try Again",
       };
     }
   }

@@ -39,7 +39,7 @@ class GetAllMessageWithFriendId {
       } else {
         return {
           error: true,
-          information: "no more page",
+          information: "There is page",
         };
       }
     } catch (e) {

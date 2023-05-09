@@ -9,45 +9,52 @@ class LeaveGroup {
   }
 
   async leave() {
-    const answer = await GroupModel.updateOne(
-      {
-        groupId: this.groupId,
-        "members.memberList": { $in: this.userId },
-        admin: {
-          $not: {
-            $elemMatch: {
-              id: this.userId,
-              status: "owner",
+    try {
+      const answer = await GroupModel.updateOne(
+        {
+          groupId: this.groupId,
+          "members.memberList": { $in: this.userId },
+          admin: {
+            $not: {
+              $elemMatch: {
+                id: this.userId,
+                status: "owner",
+              },
             },
           },
         },
-      },
-      {
-        $inc: { "members.totalMember": Number(-1) },
-        $pull: { "members.memberList": this.userId },
-      }
-    );
-    if (checkUpdateSuccess(answer)) {
-      await UserRegisterModel.updateOne(
         {
-          userId: this.userId,
-          groups: { $elemMatch: { id: this.groupId } },
-        },
-        {
-          $pull: { groups: { id: this.groupId } },
+          $inc: { "members.totalMember": Number(-1) },
+          $pull: { "members.memberList": this.userId },
         }
       );
+      if (checkUpdateSuccess(answer)) {
+        await UserRegisterModel.updateOne(
+          {
+            userId: this.userId,
+            groups: { $elemMatch: { id: this.groupId } },
+          },
+          {
+            $pull: { groups: { id: this.groupId } },
+          }
+        );
+
+        return {
+          error: false,
+          informaion: "success",
+        };
+      }
 
       return {
-        error: false,
-        informaion: "success",
+        error: true,
+        informaion: "fail",
+      };
+    } catch (e) {
+      return {
+        error: true,
+        informtion: "Try Again",
       };
     }
-
-    return {
-      error: true,
-      informaion: "fail",
-    };
   }
 }
 module.exports = LeaveGroup;

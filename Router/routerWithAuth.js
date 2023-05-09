@@ -23,6 +23,7 @@ const addMemberByAdminController = require("../Controller/AddMemberByAdminContro
 const removeFromGroupController = require("../Controller/RemoveFromGroupContoller");
 const leaveGroupController = require("../Controller/LeaveGroupController");
 const getGroupMessageController = require("../Controller/GetGroupMessageController");
+const deleteGroupMessageController = require("../Controller/DeleteGroupMessageController");
 
 const routerWithAuth = express.Router();
 
@@ -71,5 +72,6 @@ routerWithAuth.get(
   "/get_group_message/:groupId/:page",
   getGroupMessageController
 );
+routerWithAuth.patch("/delete_group_message", deleteGroupMessageController);
 
 module.exports = routerWithAuth;

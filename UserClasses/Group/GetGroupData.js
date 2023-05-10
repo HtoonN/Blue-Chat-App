@@ -19,7 +19,11 @@ class GetGroupDatas {
           { __v: 0, _id: 0 }
         );
 
-        return { error: false, data: result };
+        if (result.length) {
+          return { error: false, data: result };
+        } else {
+          return { error: true, data: result };
+        }
       } else {
         const result = await GroupModel.find(
           {
@@ -29,7 +33,11 @@ class GetGroupDatas {
           { updatedAt: 0, admin: 0, requested: 0, __v: 0, _id: 0 }
         );
 
-        return { error: false, data: result };
+        if (result.length) {
+          return { error: false, data: result };
+        } else {
+          return { error: true, data: result };
+        }
       }
     } catch (e) {
       return {

@@ -1,4 +1,4 @@
-const DeleteGroupMessage = require("../UserClasses/Group/DeleteGroupMessage");
+const DeleteGroupMessage = require("../UserClasses/Chat/DeleteGroupMessage");
 const checkObjId = require("../Utility/CheckObjId");
 
 const deleteGroupMessageController = async (req, res) => {

@@ -22,6 +22,19 @@ class MessageFriend {
       );
 
       if (checkUpdateSuccess(setResult)) {
+        //add message to friend data
+        await FriendsModel.updateOne(
+          {
+            userId: this.friendId,
+            friends: { $in: [this.userId] },
+            "messagedFriends.friendsList": { $nin: this.userId },
+          },
+          {
+            $addToSet: { "messagedFriends.friendsList": this.userId },
+            $inc: { "messagedFriends.noFriends": Number(1) },
+          }
+        );
+
         return {
           error: false,
           information: "Success",

@@ -7,7 +7,6 @@ const initializeUser = async (socket, io) => {
   socket.emit("user-connected-alert", "Connected-to-socket");
   const allFriends = await getAllFriendsWithUserId(socket.user.userId);
   allFriends.map((friId) => {
-    console.log(friId);
     io.to(friId).emit("friend-online-alert", socket.user.userId);
   });
 };

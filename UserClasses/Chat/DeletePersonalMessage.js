@@ -28,18 +28,14 @@ class DeletePersonalMessage {
           if (message.attachFiles.length > 0) {
             //delete file to cloudinary
             if (message.attachFiles[0].type === "image") {
-              const result =
-                await new ManageCloudinary().imageDeleteToCloudinary(
-                  message.attachFiles[0].public_id
-                );
-              console.log(result);
+              await new ManageCloudinary().imageDeleteToCloudinary(
+                message.attachFiles[0].public_id
+              );
             }
             if (message.attachFiles[0].type === "video") {
-              const result =
-                await new ManageCloudinary().videoDeleteToCloudinary(
-                  message.attachFiles[0].public_id
-                );
-              console.log(result);
+              await new ManageCloudinary().videoDeleteToCloudinary(
+                message.attachFiles[0].public_id
+              );
             }
           }
           //delete message to db

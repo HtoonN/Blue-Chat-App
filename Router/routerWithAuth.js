@@ -24,6 +24,7 @@ const removeFromGroupController = require("../Controller/RemoveFromGroupContolle
 const leaveGroupController = require("../Controller/LeaveGroupController");
 const getGroupMessageController = require("../Controller/GetGroupMessageController");
 const deleteGroupMessageController = require("../Controller/DeleteGroupMessageController");
+const deleteChatController = require("../Controller/DeleteChatController");
 
 const routerWithAuth = express.Router();
 
@@ -73,5 +74,6 @@ routerWithAuth.get(
   getGroupMessageController
 );
 routerWithAuth.patch("/delete_group_message", deleteGroupMessageController);
+routerWithAuth.patch("/delete_chat", deleteChatController);
 
 module.exports = routerWithAuth;

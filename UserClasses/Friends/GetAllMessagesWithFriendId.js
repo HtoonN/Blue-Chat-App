@@ -28,7 +28,7 @@ class GetAllMessageWithFriendId {
           ],
         },
         { updatedAt: 0, __v: 0, deletedBy: 0 },
-        { skip: skip, limit: this.pageSize }
+        { skip: skip, limit: this.pageSize, sort: { createdAt: -1 } }
       );
 
       if (allMessages.length) {

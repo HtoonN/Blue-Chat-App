@@ -26,6 +26,9 @@ const getGroupMessageController = require("../Controller/GetGroupMessageControll
 const deleteGroupMessageController = require("../Controller/DeleteGroupMessageController");
 const deleteChatController = require("../Controller/DeleteChatController");
 const deleteGroupController = require("../Controller/DeleteGroupController");
+const { upload } = require("../Utility/MulterUpload");
+const updateGroupInfoController = require("../Controller/UpdateGroupInfoController");
+const updateUserProfileController = require("../Controller/UpdageUserProfileController");
 
 const routerWithAuth = express.Router();
 
@@ -77,5 +80,15 @@ routerWithAuth.get(
 routerWithAuth.patch("/delete_group_message", deleteGroupMessageController);
 routerWithAuth.patch("/delete_chat", deleteChatController);
 routerWithAuth.delete("/delete_group/:groupId", deleteGroupController);
+routerWithAuth.patch(
+  "/update_group_info/:groupId",
+  upload.array("files"),
+  updateGroupInfoController
+);
+routerWithAuth.patch(
+  "/update_profile",
+  upload.array("files"),
+  updateUserProfileController
+);
 
 module.exports = routerWithAuth;

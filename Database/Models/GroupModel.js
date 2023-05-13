@@ -8,7 +8,7 @@ const GroupModel = new Schema(
       required: true,
     },
 
-    profileImg: {
+    profileImage: {
       type: String,
       default: "",
     },

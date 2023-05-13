@@ -1,9 +1,9 @@
 const cloudinary = require("cloudinary").v2;
 
 class ManageCloudinary {
-  constructor(filename, folder) {
+  constructor(filename, type) {
     this.name = filename;
-    this.folder = folder;
+    this.type = type;
     cloudinary.config({
       cloud_name: process.env.CLOUD_NAME,
       api_key: process.env.API_KEY,
@@ -12,11 +12,11 @@ class ManageCloudinary {
   }
   async saveToCloudinary() {
     let public_id = this.name.toString().split(".")[0];
-    if (this.folder === "image" || "video") {
+    if (this.type === "image" || "video") {
       return await cloudinary.uploader.upload(
         `File/${this.name}`,
         {
-          resource_type: this.folder,
+          resource_type: this.type,
           public_id: `${public_id}`,
           folder: "BlueChatApp",
           invalidate: true,

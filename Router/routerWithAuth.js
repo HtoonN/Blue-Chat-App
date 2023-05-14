@@ -29,6 +29,7 @@ const deleteGroupController = require("../Controller/DeleteGroupController");
 const { upload } = require("../Utility/MulterUpload");
 const updateGroupInfoController = require("../Controller/UpdateGroupInfoController");
 const updateUserProfileController = require("../Controller/UpdageUserProfileController");
+const changePasswordController = require("../Controller/ChangePasswordController");
 
 const routerWithAuth = express.Router();
 
@@ -90,5 +91,6 @@ routerWithAuth.patch(
   upload.array("files"),
   updateUserProfileController
 );
+routerWithAuth.patch("/change_password", changePasswordController);
 
 module.exports = routerWithAuth;

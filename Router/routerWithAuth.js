@@ -30,6 +30,7 @@ const { upload } = require("../Utility/MulterUpload");
 const updateGroupInfoController = require("../Controller/UpdateGroupInfoController");
 const updateUserProfileController = require("../Controller/UpdageUserProfileController");
 const changePasswordController = require("../Controller/ChangePasswordController");
+const changeGroupOwnerController = require("../Controller/ChangeGroupOwnerController");
 
 const routerWithAuth = express.Router();
 
@@ -92,5 +93,6 @@ routerWithAuth.patch(
   updateUserProfileController
 );
 routerWithAuth.patch("/change_password", changePasswordController);
+routerWithAuth.patch("/change_group_owner", changeGroupOwnerController);
 
 module.exports = routerWithAuth;

@@ -1,5 +1,6 @@
 const express = require("express");
 
+//controller
 const CreateGroupController = require("../Controller/CreateGroupController");
 const SearchFriendsAndGroupsController = require("../Controller/SearchFriendsAndGroupsController");
 const checkWithAuth = require("../HelperFunction/CheckAuth");
@@ -31,11 +32,14 @@ const updateGroupInfoController = require("../Controller/UpdateGroupInfoControll
 const updateUserProfileController = require("../Controller/UpdageUserProfileController");
 const changePasswordController = require("../Controller/ChangePasswordController");
 const changeGroupOwnerController = require("../Controller/ChangeGroupOwnerController");
+const changeThemeController = require("../Controller/ChangeThemeController");
 
 const routerWithAuth = express.Router();
 
+//middleware
 routerWithAuth.use(checkWithAuth);
 
+//Route
 routerWithAuth.get(
   "/search_friends_and_groups",
   SearchFriendsAndGroupsController
@@ -94,5 +98,6 @@ routerWithAuth.patch(
 );
 routerWithAuth.patch("/change_password", changePasswordController);
 routerWithAuth.patch("/change_group_owner", changeGroupOwnerController);
+routerWithAuth.patch("/change_theme/:theme", changeThemeController);
 
 module.exports = routerWithAuth;

@@ -34,6 +34,7 @@ const changePasswordController = require("../Controller/ChangePasswordController
 const changeGroupOwnerController = require("../Controller/ChangeGroupOwnerController");
 const changeThemeController = require("../Controller/ChangeThemeController");
 const changeLanguageController = require("../Controller/ChangeLanguageController");
+const accountDeactivateController = require("../Controller/AccountDeactivateController");
 
 const routerWithAuth = express.Router();
 
@@ -101,5 +102,6 @@ routerWithAuth.patch("/change_password", changePasswordController);
 routerWithAuth.patch("/change_group_owner", changeGroupOwnerController);
 routerWithAuth.patch("/change_theme/:theme", changeThemeController);
 routerWithAuth.patch("/change_language/:language", changeLanguageController);
+routerWithAuth.delete("/account_deactivate", accountDeactivateController);
 
 module.exports = routerWithAuth;

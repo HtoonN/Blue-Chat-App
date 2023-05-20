@@ -1,4 +1,5 @@
 const SearchFriendsAndGroups = require("../UserClasses/SearchFrinedsAndGroup/SearchFriendsAndGroups");
+const blockedFriendFilter = require("../Utility/BlockedFriendFilter");
 
 const SearchFriendsAndGroupsController = async (req, res) => {
   const name = req.query.name.toString();
@@ -9,17 +10,25 @@ const SearchFriendsAndGroupsController = async (req, res) => {
         name,
         req.user.userId
       );
+
       const getFriendsList = await searchFriendsAndGroupsObj.searchFriends();
       const getGroupsList = await searchFriendsAndGroupsObj.searchGroups();
+
       if (!getFriendsList.error) {
         respondDatas.error = false;
+
+        //filter for blocked friends
+        await blockedFriendFilter(req.user.userId, getFriendsList.data);
+
         respondDatas.peoples = getFriendsList.data;
       }
 
       if (!getGroupsList.error) {
         respondDatas.error = false;
+
         respondDatas.groups = getGroupsList.data;
       }
+
       res.status(200).send(respondDatas);
     } else {
       res.status(400).json({

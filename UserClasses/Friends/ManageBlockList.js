@@ -1,14 +1,17 @@
 const FriendsModel = require("../../Database/Models/FriendsModel");
 
 class ManageBlockList {
-  constructor(userId, friendId, isFriend) {
+  constructor(userId, friendId) {
     this.userId = userId;
     this.friendId = friendId;
-    this.isFriend = isFriend;
   }
   async block() {
     try {
-      if (this.isFriend) {
+      const isFriend = await FriendsModel.find({
+        userId: this.userId,
+        friends: { $in: this.friendId },
+      });
+      if (isFriend.length) {
         //set to user
         await FriendsModel.updateOne(
           { userId: this.userId },

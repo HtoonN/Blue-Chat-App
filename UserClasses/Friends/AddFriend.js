@@ -1,4 +1,5 @@
 const FriendsModel = require("../../Database/Models/FriendsModel");
+const checkUpdateSuccess = require("../../Utility/CheckUpdateSuccess");
 const Notification = require("../Notification/Notification");
 
 class AddFriend {
@@ -9,23 +10,46 @@ class AddFriend {
 
   async add() {
     try {
-      await FriendsModel.updateOne(
-        { userId: this.userId },
+      const userResult = await FriendsModel.updateOne(
+        {
+          userId: this.userId,
+          "add.list": { $ne: this.friendId },
+          friends: { $ne: this.friendId },
+          "requested.list": { $ne: this.friendId },
+        },
         {
           $addToSet: {
             "add.list": this.friendId,
           },
+          $inc: { "add.no": Number(1) },
         }
       );
 
-      await FriendsModel.updateOne(
-        { userId: this.friendId },
+      if (!checkUpdateSuccess(userResult)) {
+        return {
+          error: true,
+        };
+      }
+
+      const friendResult = await FriendsModel.updateOne(
+        {
+          userId: this.friendId,
+          "requested.list": { $ne: this.userId },
+          friends: { $ne: this.userId },
+        },
         {
           $addToSet: {
             "requested.list": this.userId,
           },
+          $inc: { "requested.no": Number(1) },
         }
       );
+
+      if (!checkUpdateSuccess(friendResult)) {
+        return {
+          error: true,
+        };
+      }
 
       const notiObj = {
         header: "Friend request",

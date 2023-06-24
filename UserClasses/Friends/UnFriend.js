@@ -13,6 +13,7 @@ class Unfriend {
         { userId: this.userId, friends: { $in: this.friendId } },
         {
           $pull: { friends: this.friendId },
+          $inc: { noFriends: Number(-1) },
         }
       );
 
@@ -21,6 +22,7 @@ class Unfriend {
         { userId: this.friendId, friends: { $in: this.userId } },
         {
           $pull: { friends: this.userId },
+          $inc: { noFriends: Number(-1) },
         }
       );
 

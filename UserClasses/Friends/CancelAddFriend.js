@@ -30,7 +30,7 @@ class CancelAddFriend {
         );
         return {
           error: false,
-          data: isRequested,
+          data: "Success!",
         };
       } else {
         return {

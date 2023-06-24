@@ -15,8 +15,8 @@ class AcceptFriend {
           $addToSet: {
             friends: this.friendId,
           },
-          $inc: { noFrineds: Number(1) },
           $pull: { "requested.list": this.friendId },
+          $inc: { noFriends: Number(1) },
         }
       );
 
@@ -26,8 +26,8 @@ class AcceptFriend {
           $addToSet: {
             friends: this.userId,
           },
-          $inc: { noFrineds: Number(1) },
           $pull: { "add.list": this.userId },
+          $inc: { noFriends: Number(1) },
         }
       );
 

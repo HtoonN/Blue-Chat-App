@@ -1,8 +1,14 @@
 const AddFriend = require("../UserClasses/Friends/AddFriend");
+const checkToSelf = require("../Utility/CheckToSelf");
 
 const addFriendController = async (req, res) => {
   const reqUser = req.user.userId.toString();
   const acceptUser = req.params.friId.toString();
+
+  if (checkToSelf(reqUser, acceptUser)) {
+    res.status(400).send("Fail");
+    return 0;
+  }
 
   if (reqUser && acceptUser) {
     try {

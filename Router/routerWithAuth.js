@@ -107,9 +107,6 @@ routerWithAuth.patch("/change_theme/:theme", changeThemeController);
 routerWithAuth.patch("/change_language/:language", changeLanguageController);
 routerWithAuth.delete("/account_deactivate", accountDeactivateController);
 routerWithAuth.get("/get_person_data/:id", getPersonDataController);
-routerWithAuth.patch(
-  "/cancel_friend_request/:friendId",
-  cancelAddFriendController
-);
+routerWithAuth.patch("/cancel_add_friend/:friendId", cancelAddFriendController);
 routerWithAuth.get("/get_a_friend_data/:friendId", getAFriendDataController);
 module.exports = routerWithAuth;

@@ -21,6 +21,7 @@ class ManageBlockList {
               "messagedFriends.friendsList": this.friendId,
               friends: this.friendId,
             },
+            $inc: { noFriends: Number(-1) }
           }
         );
 
@@ -33,6 +34,7 @@ class ManageBlockList {
               "messagedFriends.friendsList": this.userId,
               friends: this.userId,
             },
+            $inc: { noFriends: Number(-1) }
           }
         );
 

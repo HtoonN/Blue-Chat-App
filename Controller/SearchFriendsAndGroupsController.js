@@ -4,6 +4,7 @@ const blockedFriendFilter = require("../Utility/BlockedFriendFilter");
 const SearchFriendsAndGroupsController = async (req, res) => {
   const name = req.query.name.toString();
   let respondDatas = { error: true };
+
   try {
     if (name) {
       const searchFriendsAndGroupsObj = new SearchFriendsAndGroups(

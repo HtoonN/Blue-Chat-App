@@ -3,6 +3,7 @@ const ManageBlockList = require("../UserClasses/Friends/ManageBlockList");
 const unBlockUserController = async (req, res) => {
   const userId = req.user.userId;
   const friendId = req.body.data.friendId.toString();
+
   if (userId && friendId) {
     const result = await new ManageBlockList(userId, friendId).unBlock();
     if (!result.error) {

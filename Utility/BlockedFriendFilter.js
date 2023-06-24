@@ -8,7 +8,7 @@ const blockedFriendFilter = async (userId, friendData) => {
   );
 
   let blockedList = preblockedList.blockedFriends.blockedList;
-  blockedList.concat(preblockedList.blockedFriends.getBlocked);
+  blockedList = blockedList.concat(preblockedList.blockedFriends.getBlocked);
 
   const getOutBlockedFriends = (friend, index, arr) => {
     blockedList.map((blockedId) => {

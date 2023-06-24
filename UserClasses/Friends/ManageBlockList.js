@@ -21,7 +21,7 @@ class ManageBlockList {
               "messagedFriends.friendsList": this.friendId,
               friends: this.friendId,
             },
-            $inc: { noFriends: Number(-1) }
+            $inc: { noFriends: Number(-1) },
           }
         );
 
@@ -34,7 +34,7 @@ class ManageBlockList {
               "messagedFriends.friendsList": this.userId,
               friends: this.userId,
             },
-            $inc: { noFriends: Number(-1) }
+            $inc: { noFriends: Number(-1) },
           }
         );
 
@@ -49,6 +49,10 @@ class ManageBlockList {
           { userId: this.userId },
           {
             $addToSet: { "blockedFriends.blockedList": this.friendId },
+            $pull: {
+              "requested.list": this.friendId,
+              "add.list": this.friendId,
+            },
           }
         );
 
@@ -57,6 +61,7 @@ class ManageBlockList {
           { userId: this.friendId },
           {
             $addToSet: { "blockedFriends.getBlocked": this.userId },
+            $pull: { "requested.list": this.userId, "add.list": this.userId },
           }
         );
 

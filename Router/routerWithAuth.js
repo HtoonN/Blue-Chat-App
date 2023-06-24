@@ -115,4 +115,5 @@ routerWithAuth.patch(
   "/cancel_friend_requested/:userId",
   CancelFriendRequestController
 );
+
 module.exports = routerWithAuth;

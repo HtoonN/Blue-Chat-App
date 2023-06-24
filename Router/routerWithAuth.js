@@ -38,6 +38,8 @@ const accountDeactivateController = require("../Controller/AccountDeactivateCont
 const getPersonDataController = require("../Controller/GetPersonDataController");
 const cancelAddFriendController = require("../Controller/CancelAddFriendController");
 const getAFriendDataController = require("../Controller/GetAFriendDataController");
+const CancelFriendRequest = require("../UserClasses/Friends/CancelFriendRequest");
+const CancelFriendRequestController = require("../Controller/CancelFriendRequestController");
 
 const routerWithAuth = express.Router();
 
@@ -109,4 +111,8 @@ routerWithAuth.delete("/account_deactivate", accountDeactivateController);
 routerWithAuth.get("/get_person_data/:id", getPersonDataController);
 routerWithAuth.patch("/cancel_add_friend/:friendId", cancelAddFriendController);
 routerWithAuth.get("/get_a_friend_data/:friendId", getAFriendDataController);
+routerWithAuth.patch(
+  "/cancel_friend_requested/:userId",
+  CancelFriendRequestController
+);
 module.exports = routerWithAuth;

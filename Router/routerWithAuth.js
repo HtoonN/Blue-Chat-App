@@ -40,6 +40,11 @@ const cancelAddFriendController = require("../Controller/CancelAddFriendControll
 const getAFriendDataController = require("../Controller/GetAFriendDataController");
 const CancelFriendRequest = require("../UserClasses/Friends/CancelFriendRequest");
 const CancelFriendRequestController = require("../Controller/CancelFriendRequestController");
+const getAllRequestedUserController = require("../Controller/GetAllRequestedUserController");
+const GetAllAddedUser = require("../UserClasses/Friends/GetAllAddedUsers");
+const getAllAddedUsersController = require("../Controller/GetAllAddedUsersController");
+const getAllBlockedUsersController = require("../Controller/GetAllBlockedUsersController");
+const GetAllMessagedFriendsController = require("../Controller/GetAllMessagedFriendsController");
 
 const routerWithAuth = express.Router();
 
@@ -114,6 +119,19 @@ routerWithAuth.get("/get_a_friend_data/:friendId", getAFriendDataController);
 routerWithAuth.patch(
   "/cancel_friend_requested/:userId",
   CancelFriendRequestController
+);
+routerWithAuth.get(
+  "/get_all_requested_users/:pageNo",
+  getAllRequestedUserController
+);
+routerWithAuth.get("/get_all_added_users/:pageNo", getAllAddedUsersController);
+routerWithAuth.get(
+  "/get_all_blocked_users/:pageNo",
+  getAllBlockedUsersController
+);
+routerWithAuth.get(
+  "/get_all_messaged_friends/:pageNo",
+  GetAllMessagedFriendsController
 );
 
 module.exports = routerWithAuth;

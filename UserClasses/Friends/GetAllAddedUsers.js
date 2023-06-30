@@ -2,22 +2,22 @@ const FriendsModel = require("../../Database/Models/FriendsModel");
 const UserRegisterModel = require("../../Database/Models/UserRegisterModel");
 const caculatePages = require("../../Utility/CaculatePages");
 
-class GetAllFriendsDatas {
-  constructor(id, pageNumber) {
-    this.userId = id;
-    this.friendArray = [];
-    this.pageNumber = pageNumber;
+class GetAllAddedUser {
+  constructor(userId, pageNo) {
+    this.userId = userId;
+    this.pageNumber = pageNo;
+    this.userArray = [];
     this.pageSize = 20;
   }
 
-  async searchFriend() {
+  async get() {
     try {
       const allFriends = await FriendsModel.findOne(
         { userId: this.userId },
-        { friends: 1, _id: 0 }
+        { add: 1, _id: 0 }
       );
 
-      const pages = caculatePages(this.pageSize, allFriends.friends.length);
+      const pages = caculatePages(this.pageSize, allFriends.add.list.length);
 
       if (this.pageNumber > pages) {
         if (pages) {
@@ -28,7 +28,7 @@ class GetAllFriendsDatas {
         } else {
           return {
             error: true,
-            information: "You have no friends",
+            information: "You have no added user",
           };
         }
       }
@@ -36,7 +36,7 @@ class GetAllFriendsDatas {
       const start = this.pageSize * this.pageNumber - this.pageSize;
       const end = this.pageSize * this.pageNumber;
 
-      const resultArray = allFriends.friends.slice(start, end);
+      const resultArray = allFriends.add.list.slice(start, end);
 
       const metadata = {
         totalPage: pages,
@@ -49,25 +49,26 @@ class GetAllFriendsDatas {
         resultArray.map(async (userId) => {
           const result = await UserRegisterModel.findOne(
             { userId },
-            { userId: 1, username: 1, profileImage: 1, _id: 0, status: 1 }
+            { userId: 1, username: 1, profileImage: 1, _id: 0 }
           );
 
-          this.friendArray.push(result);
+          this.userArray.push(result);
         })
       );
+
       return {
         error: false,
         data: {
           metadata,
-          data: this.friendArray,
+          data: this.userArray,
         },
       };
     } catch (e) {
       return {
         error: true,
-        information: "Try Again",
+        information: "Try Again!",
       };
     }
   }
 }
-module.exports = GetAllFriendsDatas;
+module.exports = GetAllAddedUser;

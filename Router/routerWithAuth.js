@@ -45,6 +45,7 @@ const GetAllAddedUser = require("../UserClasses/Friends/GetAllAddedUsers");
 const getAllAddedUsersController = require("../Controller/GetAllAddedUsersController");
 const getAllBlockedUsersController = require("../Controller/GetAllBlockedUsersController");
 const GetAllMessagedFriendsController = require("../Controller/GetAllMessagedFriendsController");
+const getAllNotificationController = require("../Controller/GetAllNotificationController");
 
 const routerWithAuth = express.Router();
 
@@ -132,6 +133,10 @@ routerWithAuth.get(
 routerWithAuth.get(
   "/get_all_messaged_friends/:pageNo",
   GetAllMessagedFriendsController
+);
+routerWithAuth.get(
+  "/get_all_notifications/:pageNo",
+  getAllNotificationController
 );
 
 module.exports = routerWithAuth;

@@ -37,6 +37,7 @@ class AcceptFriend {
           new Date().toString().split(" GMT")[0]
         }`,
         id: this.friendId,
+        senderId: this.userId,
       };
 
       await new Notification(notiObj).addNotification();

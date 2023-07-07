@@ -31,6 +31,7 @@ class AddGroup {
           this.groupId
         } at ${new Date().toString().split(" GMT")[0]}`,
         id: this.groupId,
+        senderId: this.userId,
       };
 
       await new Notification(notiObj).addNotification();

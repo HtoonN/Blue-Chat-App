@@ -36,6 +36,7 @@ class AddMemberByAdmin {
           id: this.memberId,
           header: "Add To Group",
           info: `add to group ${this.groupId}`,
+          senderId: this.groupId,
         }).addNotification();
       }
 

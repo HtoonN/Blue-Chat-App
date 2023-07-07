@@ -19,6 +19,9 @@ const NotificationModel = new Schema(
       type: String,
       required: true,
     },
+    senderId: {
+      type: String,
+    },
   },
   {
     timestamps: true,

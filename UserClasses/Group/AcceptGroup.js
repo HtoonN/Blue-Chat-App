@@ -55,6 +55,7 @@ class AcceptGroup {
           header: "Accept group request",
           info: `Now, you are a member of ${this.groupId}`,
           id: this.memberId,
+          senderId: this.groupId,
         };
 
         await new Notification(notiObj).addNotification();

@@ -20,7 +20,7 @@ class AddGroup {
         { userId: this.userId },
         {
           $addToSet: {
-            "add.list": this.groupId,
+            "add.groups": this.groupId,
           },
         }
       );

@@ -56,6 +56,11 @@ const FriendsModel = new Schema(
         default: [],
       },
 
+      groups: {
+        type: Array,
+        default: [],
+      },
+
       no: {
         type: Number,
         default: 0,

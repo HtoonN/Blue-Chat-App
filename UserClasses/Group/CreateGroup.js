@@ -2,10 +2,11 @@ const GroupModel = require("../../Database/Models/GroupModel");
 const GenerateId = require("../../Utility/GenerateId");
 
 class CreateGroup {
-  constructor(name, adminId) {
+  constructor(name, adminId, type) {
     this.name = name;
     this.admin = adminId;
     this.groupId = GenerateId();
+    this.type = type;
   }
 
   async create() {
@@ -13,6 +14,7 @@ class CreateGroup {
       const group = new GroupModel({
         name: this.name,
         groupId: this.groupId,
+        type: this.type ? this.type : "General",
         admin: [{ status: "owner", id: this.admin }],
         members: {
           memberList: [this.admin],

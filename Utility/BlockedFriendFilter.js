@@ -1,28 +1,54 @@
 const FriendsModel = require("../Database/Models/FriendsModel");
 
 const blockedFriendFilter = async (userId, friendData) => {
-  let friendArr = friendData.friendsList;
-  const preblockedList = await FriendsModel.findOne(
-    { userId: userId },
-    { blockedFriends: 1, _id: 0 }
-  );
+  try {
+    let friendArr = friendData.friendsList;
+    let returnArr = [];
 
-  let blockedList = preblockedList.blockedFriends.blockedList;
-  blockedList = blockedList.concat(preblockedList.blockedFriends.getBlocked);
+    const preblockedList = await FriendsModel.findOne(
+      { userId: userId },
+      { blockedFriends: 1, _id: 0 }
+    );
 
-  const getOutBlockedFriends = (friend, index, arr) => {
-    blockedList.map((blockedId) => {
-      if (friend.userId.toString() === blockedId.toString()) {
-        arr.splice(index, 1);
-        friendArr = arr;
-      }
-    });
-  };
+    let blockedList = preblockedList.blockedFriends.blockedList;
+    blockedList = blockedList.concat(preblockedList.blockedFriends.getBlocked);
 
-  if (blockedList.length) {
-    friendArr.filter(getOutBlockedFriends);
+    if (blockedList.length) {
+      friendArr.map((friObj) => {
+        let isBlock = false;
+        let indexToRemoveBlockedList;
+
+        if (blockedList.length) {
+          blockedList.map((blockedId, index) => {
+            if (blockedId.toString() === friObj.userId.toString()) {
+              isBlock = true;
+              indexToRemoveBlockedList = index;
+            }
+          });
+        }
+
+        if (isBlock) {
+          blockedList.splice(1, indexToRemoveBlockedList);
+        } else {
+          //Add to ReturnValue to Array
+          returnArr.push(friObj);
+        }
+      });
+      return {
+        friendsList: returnArr,
+        no: returnArr.length,
+      };
+    } else {
+      return {
+        friendsList: friendArr,
+        no: friendArr.length,
+      };
+    }
+  } catch (e) {
+    return {
+      friendsList: [],
+      no: 0,
+    };
   }
-
-  friendData.no = friendArr.length;
 };
 module.exports = blockedFriendFilter;

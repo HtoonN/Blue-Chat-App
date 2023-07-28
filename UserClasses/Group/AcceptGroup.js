@@ -46,7 +46,7 @@ class AcceptGroup {
           { userId: this.memberId },
           {
             $pull: {
-              "add.list": this.groupId,
+              "add.groups": this.groupId,
             },
           }
         );

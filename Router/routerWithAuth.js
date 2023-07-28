@@ -38,14 +38,17 @@ const accountDeactivateController = require("../Controller/AccountDeactivateCont
 const getPersonDataController = require("../Controller/GetPersonDataController");
 const cancelAddFriendController = require("../Controller/CancelAddFriendController");
 const getAFriendDataController = require("../Controller/GetAFriendDataController");
-const CancelFriendRequest = require("../UserClasses/Friends/CancelFriendRequest");
 const CancelFriendRequestController = require("../Controller/CancelFriendRequestController");
 const getAllRequestedUserController = require("../Controller/GetAllRequestedUserController");
-const GetAllAddedUser = require("../UserClasses/Friends/GetAllAddedUsers");
 const getAllAddedUsersController = require("../Controller/GetAllAddedUsersController");
 const getAllBlockedUsersController = require("../Controller/GetAllBlockedUsersController");
 const GetAllMessagedFriendsController = require("../Controller/GetAllMessagedFriendsController");
 const getAllNotificationController = require("../Controller/GetAllNotificationController");
+const setNotificationSeenController = require("../Controller/SetNotificatonSeenController");
+const cancelGroupAddedController = require("../Controller/CancelGroupAddedController");
+const cancelGroupRequestedController = require("../Controller/CancelGroupRequestedController");
+const getGroupInfoController = require("../Controller/GetGroupInfoController");
+const searchPeopleController = require("../Controller/SearchPeopleController");
 
 const routerWithAuth = express.Router();
 
@@ -138,5 +141,19 @@ routerWithAuth.get(
   "/get_all_notifications/:pageNo",
   getAllNotificationController
 );
+routerWithAuth.patch(
+  "/set_notification_seen/:notiId",
+  setNotificationSeenController
+);
+routerWithAuth.patch(
+  "/cancel_group_added/:groupId",
+  cancelGroupAddedController
+);
+routerWithAuth.patch(
+  "/cancel_group_requested/:groupId/:reqUserId",
+  cancelGroupRequestedController
+);
+routerWithAuth.get("/get_group_info/:groupId", getGroupInfoController);
+routerWithAuth.get("/search_people/:name", searchPeopleController);
 
 module.exports = routerWithAuth;

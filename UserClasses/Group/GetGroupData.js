@@ -30,7 +30,7 @@ class GetGroupDatas {
             groupId: this.groupId,
             "members.memberList": { $in: this.userId },
           },
-          { updatedAt: 0, admin: 0, requested: 0, __v: 0, _id: 0 }
+          { updatedAt: 0, requested: 0, __v: 0, _id: 0 }
         );
 
         if (result.length) {

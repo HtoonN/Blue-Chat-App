@@ -2,13 +2,14 @@ const CreateGroup = require("../UserClasses/Group/CreateGroup");
 const UpdateData = require("../UserClasses/UpdateRegisterClass");
 const UpdateGroup = require("../UserClasses/UpdateRegisterClass/UpdateGroup");
 
-const CreateGroupController = async (req, res, next) => {
+const CreateGroupController = async (req, res) => {
   const userId = req.user.userId.toString();
   const name = req.body.data.name.toString();
+  const type = req.body.data.type;
 
   try {
     if (name && userId) {
-      const groupObj = new CreateGroup(name, userId);
+      const groupObj = new CreateGroup(name, userId, type);
       const groupDatas = await groupObj.create();
 
       if (groupDatas.error) {

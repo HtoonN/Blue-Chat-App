@@ -49,6 +49,7 @@ const cancelGroupAddedController = require("../Controller/CancelGroupAddedContro
 const cancelGroupRequestedController = require("../Controller/CancelGroupRequestedController");
 const getGroupInfoController = require("../Controller/GetGroupInfoController");
 const searchPeopleController = require("../Controller/SearchPeopleController");
+const videoRequestController = require("../Controller/VideoRequestController");
 
 const routerWithAuth = express.Router();
 
@@ -155,5 +156,6 @@ routerWithAuth.patch(
 );
 routerWithAuth.get("/get_group_info/:groupId", getGroupInfoController);
 routerWithAuth.get("/search_people/:name", searchPeopleController);
+routerWithAuth.get("/get_video", videoRequestController);
 
 module.exports = routerWithAuth;

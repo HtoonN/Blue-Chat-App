@@ -1,12 +1,10 @@
 const tokenParser = (req, res, next) => {
-  const { token } = req.query;
   const { userBlueChatApp } = req.cookies;
 
-  if (token || userBlueChatApp) {
-    req.token = token;
-    req.token2 = userBlueChatApp;
+  if (userBlueChatApp) {
+    req.token = userBlueChatApp;
   } else {
-    req.token = "no token";
+    req.token = false;
   }
   next();
 };

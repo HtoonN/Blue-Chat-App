@@ -18,7 +18,7 @@ const messageController = async (socket, obj, sendIo) => {
       }).savePersonalMessage();
 
       io.to(obj.receiver).emit("receive-message-from-friend", result);
-      socket.emit("send-message-successful", result);
+      socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
     } else if (type === "GM") {
       const result = await new SaveMessage({
         sender,
@@ -28,7 +28,7 @@ const messageController = async (socket, obj, sendIo) => {
       }).saveGroupMessage();
 
       io.to(obj.receiver).emit("receive-message-from-group", result);
-      socket.emit("send-message-successful", result);
+      socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
     }
   } else {
     if (type === "PM") {
@@ -39,7 +39,7 @@ const messageController = async (socket, obj, sendIo) => {
       }).savePersonalMessage();
 
       io.to(obj.receiver).emit("receive-message-from-friend", result);
-      socket.emit("send-message-successful", result);
+      socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
     } else if (type === "GM") {
       const result = await new SaveMessage({
         sender,
@@ -48,7 +48,7 @@ const messageController = async (socket, obj, sendIo) => {
       }).saveGroupMessage();
 
       io.to(obj.receiver).emit("receive-message-from-group", result);
-      socket.emit("send-message-successful", result);
+      socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
     } else {
       socket.emit("error", "You have to send PM or GM");
     }

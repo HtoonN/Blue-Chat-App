@@ -4,23 +4,28 @@ const ManageCloudinary = require("../HelperFunction/SaveToCloudinary");
 
 const updateProfileImageUpload = async (file, flag, id) => {
   try {
-    const type = file.mimetype.toString().split("/")[0];
-    const filename = file.filename.toString();
     let isPreviousImage;
+    let imageString;
 
-    const result = await new ManageCloudinary(
-      filename,
-      type
-    ).saveToCloudinary();
+    if (file) {
+      const type = file.mimetype.toString().split("/")[0];
+      const filename = file.filename.toString();
+      const result = await new ManageCloudinary(
+        filename,
+        type
+      ).saveToCloudinary();
 
-    const imgObj = {
-      public_id: result.public_id,
-      format: result.format,
-      resource_type: result.resource_type,
-      version: result.version,
-    };
+      const imgObj = {
+        public_id: result.public_id,
+        format: result.format,
+        resource_type: result.resource_type,
+        version: result.version,
+      };
 
-    const imageString = JSON.stringify(imgObj);
+      imageString = JSON.stringify(imgObj);
+    } else {
+      imageString = "";
+    }
 
     if (flag === "G") {
       isPreviousImage = await GroupModel.findOne({ groupId: id });

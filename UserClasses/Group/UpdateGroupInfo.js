@@ -1,4 +1,5 @@
 const GroupModel = require("../../Database/Models/GroupModel");
+const updateProfileImageUpload = require("../../Utility/FileSavedToCloudinaryForProfileImageUpload");
 
 class UpdateGroupInfo {
   constructor(userId, groupId, info) {
@@ -22,6 +23,20 @@ class UpdateGroupInfo {
       if (this.info.image) {
         this.updateInfo.profileImage = this.info.image;
         this.project.profileImage = 1;
+      }
+
+      if (this.info.removeProfileImage) {
+        //delete profile image
+        const Imgresult = await updateProfileImageUpload(
+          false,
+          "G",
+          this.groupId
+        );
+
+        if (!Imgresult.error) {
+          this.updateInfo.profileImage = Imgresult.data;
+          this.project.profileImage = 1;
+        }
       }
 
       await GroupModel.updateOne(

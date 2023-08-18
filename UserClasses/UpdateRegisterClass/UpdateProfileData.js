@@ -3,6 +3,7 @@ const EmailFormatValidation = require("../../HelperFunction/EmailFormatValidatio
 const {
   UsernameValidation,
 } = require("../../HelperFunction/UsernameValidation");
+const updateProfileImageUpload = require("../../Utility/FileSavedToCloudinaryForProfileImageUpload");
 
 class UpdateProfileData {
   constructor(userId, data) {
@@ -54,6 +55,20 @@ class UpdateProfileData {
         this.project.profileImage = 1;
       }
 
+      //check RemoveImage
+      if (this.sendData.removeProfileImage) {
+        const Imgresult = await updateProfileImageUpload(
+          false,
+          "P",
+          this.userId
+        );
+
+        if (!Imgresult.error) {
+          this.updateData.profileImage = Imgresult.data;
+          this.project.profileImage = 1;
+        }
+      }
+
       const checkUpdateDatas = JSON.stringify(this.updateData);
       if (checkUpdateDatas === "{}") {
         return {
@@ -62,7 +77,7 @@ class UpdateProfileData {
         };
       }
 
-      const result = await UserRegisterModel.updateOne(
+      await UserRegisterModel.updateOne(
         { userId: this.userId },
         this.updateData,
         this.project

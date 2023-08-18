@@ -1,5 +1,7 @@
 const NotificatonModel = require("../../Database/Models/NotificatonModel");
 const caculatePages = require("../../Utility/CaculatePages");
+const nextPage = require("../../Utility/CalculateNextPage");
+const culPerviousPage = require("../../Utility/CalculatePreviousPage");
 
 class GetAllNotifications {
   constructor(userId, pageNo) {
@@ -39,26 +41,10 @@ class GetAllNotifications {
         { sort: { createdAt: -1 }, skip: start, limit: this.pageSize }
       );
 
-      const culPerviousPage = () => {
-        if (parseInt(this.pageNumber, 10) > 1) {
-          return parseInt(this.pageNumber, 10) - 1;
-        } else {
-          return false;
-        }
-      };
-
-      const nextPage = () => {
-        if (parseInt(this.pageNumber, 10) === pages) {
-          return false;
-        } else {
-          return parseInt(this.pageNumber, 10) + 1;
-        }
-      };
-
       const data = {
         data: result,
-        previousPage: culPerviousPage(),
-        nextPage: nextPage(),
+        previousPage: culPerviousPage(this.pageNumber),
+        nextPage: nextPage(this.pageNumber, pages),
         currentPage: this.pageNumber,
         no: result.length,
       };

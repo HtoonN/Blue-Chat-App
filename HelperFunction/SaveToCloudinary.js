@@ -11,16 +11,17 @@ class ManageCloudinary {
     });
   }
   async saveToCloudinary() {
-    let public_id = this.name.toString().split(".")[0];
+    // let public_id = this.name.toString().split(".")[0];
     if (this.type === "image" || "video") {
       return await cloudinary.uploader.upload(
         `File/${this.name}`,
         {
-          resource_type: this.type,
-          public_id: `${public_id}`,
+          // resource_type: this.type,
+          resource_type: "auto",
+          //  public_id: `${public_id}`,
           folder: "BlueChatApp",
-          invalidate: true,
-          crop: "fill",
+          //invalidate: true,
+          //crop: "fill",
         },
         function (error, result) {
           if (error) {

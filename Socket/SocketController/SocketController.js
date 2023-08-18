@@ -8,7 +8,7 @@ const message = require("../SocketFunction/message");
 const initializeUser = require("../SocketInitializedUser");
 
 const socketController = async (socket, io) => {
-  let fileInformation = { data: "" };
+  let fileInformation = {};
   let data = {};
 
   await initializeUser(socket, io);
@@ -18,23 +18,38 @@ const socketController = async (socket, io) => {
   });
 
   socket.on("message", async (rawData) => {
-    data = rawData;
-    data.sender = socket.user.userId;
-    await message(fileInformation, data, io, socket);
+    data[rawData.tempId] = rawData;
+    data[rawData.tempId].sender = socket.user.userId;
+    fileInformation[rawData.tempId] = { data: "" };
+
+    const result = await message(
+      fileInformation[rawData.tempId],
+      data[rawData.tempId],
+      io,
+      socket
+    );
+
+    if (result.information === "success") {
+      delete fileInformation[result.tempId];
+      delete data[result.tempId];
+    }
   });
 
-  socket.on("file-data", async (sendFileData) => {
+  socket.on("file-data", async ({ tempId, ...sendFileData }) => {
     const result = await fileData(
-      fileInformation,
-      data,
+      fileInformation[tempId],
+      data[tempId],
       io,
       sendFileData,
       socket
     );
-    if (result !== "continued") {
-      //clean data for file data
-      fileInformation = { data: "" };
-      data = {};
+
+    if (result) {
+      if (result.information !== "continued") {
+        //clean data for file data
+        delete fileInformation[result.tempId];
+        delete data[result.tempId];
+      }
     }
   });
 
@@ -51,11 +66,12 @@ const socketController = async (socket, io) => {
   });
 
   socket.on("testing", (msg) => {
-    socket.emit("testing-reply", {});
+    socket.emit("testing-reply", "We are connected");
   });
 
   socket.on("disconnect", async () => {
     await disconnect(socket, io);
   });
 };
+
 module.exports = socketController;

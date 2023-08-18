@@ -4,8 +4,9 @@ const updateProfileImageUpload = require("../Utility/FileSavedToCloudinaryForPro
 const updateUserProfileController = async (req, res) => {
   const userId = req.user.userId.toString();
   const datas = req.query;
+  const result = {};
 
-  if (userId && JSON.stringify(datas) !== "{}") {
+  if (userId) {
     if (req.files) {
       const Imgresult = await updateProfileImageUpload(
         req.files[0],
@@ -15,15 +16,19 @@ const updateUserProfileController = async (req, res) => {
 
       if (!Imgresult.error) {
         datas.image = Imgresult.data;
+        result.profileImage = Imgresult.data;
       }
     }
+    if (JSON.stringify(datas) !== "{}") {
+      result.data = await new UpdateProfileData(userId, datas).update();
 
-    const result = await new UpdateProfileData(userId, datas).update();
-
-    if (!result.error) {
-      res.status(200).json(result);
+      if (!result.data.error) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json(result);
+      }
     } else {
-      res.status(400).json(result);
+      res.status(200).json(result);
     }
   } else {
     res.status(400);

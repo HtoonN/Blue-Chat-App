@@ -9,7 +9,7 @@ const messageSeen = async (msg, io, socket) => {
         { seen: true }
       );
       if (result.modifiedCount) {
-        io.to(msg.sender).emit("message-seen-alert", msg);
+        io.to(msg.sender).emit("message-seen-alert-friend", msg);
       }
     } else if (msg.groupId) {
       const result = await GroupMessageModel.updateOne(
@@ -21,7 +21,7 @@ const messageSeen = async (msg, io, socket) => {
         }
       );
       if (result.modifiedCount) {
-        io.to(msg.groupId).emit("message-seen-alert", msg);
+        socket.broadcast.to(msg.groupId).emit("message-seen-alert-group", msg);
       }
     }
   } catch (e) {

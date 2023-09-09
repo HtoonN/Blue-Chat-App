@@ -20,6 +20,7 @@ const checkJwtForSocket = async (token, socket, next) => {
       console.log("Auth Error with token in socket");
     }
   } catch (e) {
+    console.log(e);
     console.log("connect socket error with token");
   }
 };

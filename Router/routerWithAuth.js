@@ -50,6 +50,9 @@ const cancelGroupRequestedController = require("../Controller/CancelGroupRequest
 const getGroupInfoController = require("../Controller/GetGroupInfoController");
 const searchPeopleController = require("../Controller/SearchPeopleController");
 const videoRequestController = require("../Controller/VideoRequestController");
+const getAllNewReceivedMessageController = require("../Controller/GetAllReceivedMessageController");
+const setMessageSeenController = require("../Controller/SetMessageSeenController");
+const getGroupNotiController = require("../Controller/GetGroupNotiController");
 
 const routerWithAuth = express.Router();
 
@@ -157,5 +160,11 @@ routerWithAuth.patch(
 routerWithAuth.get("/get_group_info/:groupId", getGroupInfoController);
 routerWithAuth.get("/search_people/:name", searchPeopleController);
 routerWithAuth.get("/get_video", videoRequestController);
+routerWithAuth.get(
+  "/set_all_received_messages_delievered",
+  getAllNewReceivedMessageController
+);
+routerWithAuth.patch("/set_messaged_seen/:friId", setMessageSeenController);
+routerWithAuth.get("/get_group_noti/:groupId", getGroupNotiController);
 
 module.exports = routerWithAuth;

@@ -36,25 +36,32 @@ const socketController = async (socket, io) => {
   });
 
   socket.on("file-data", async ({ tempId, ...sendFileData }) => {
-    const result = await fileData(
-      fileInformation[tempId],
-      data[tempId],
-      io,
-      sendFileData,
-      socket
-    );
+    if (fileInformation[tempId] && data[tempId]) {
+      const result = await fileData(
+        fileInformation[tempId],
+        data[tempId],
+        io,
+        sendFileData,
+        socket
+      );
 
-    if (result) {
-      if (result.information !== "continued") {
-        //clean data for file data
-        delete fileInformation[result.tempId];
-        delete data[result.tempId];
+      if (result) {
+        if (result.information !== "continued") {
+          //clean data for file data
+          delete fileInformation[result.tempId];
+          delete data[result.tempId];
+        }
       }
     }
   });
 
   socket.on("message-delievered", async (msg) => {
     await messageDelievered(msg, io);
+  });
+
+  socket.on("cancel-sending-file", (tempId) => {
+    delete fileInformation[tempId];
+    delete data[tempId];
   });
 
   socket.on("message-seen", async (msg) => {

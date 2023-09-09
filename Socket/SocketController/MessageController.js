@@ -27,8 +27,9 @@ const messageController = async (socket, obj, sendIo) => {
         attachFiles,
       }).saveGroupMessage();
 
-      io.to(obj.receiver).emit("receive-message-from-group", result);
-      socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
+      socket.broadcast.to(obj.receiver).emit("receive-message-from-group", result);
+     socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
+//socket.emit("receive-message-from-group", { ...result, tempId: obj.tempId });
     }
   } else {
     if (type === "PM") {
@@ -47,8 +48,9 @@ const messageController = async (socket, obj, sendIo) => {
         message,
       }).saveGroupMessage();
 
-      io.to(obj.receiver).emit("receive-message-from-group", result);
+      socket.broadcast.to(obj.receiver).emit("receive-message-from-group", result);
       socket.emit("send-message-successful", { ...result, tempId: obj.tempId });
+//socket.emit("receive-message-from-group", { ...result, tempId: obj.tempId });
     } else {
       socket.emit("error", "You have to send PM or GM");
     }

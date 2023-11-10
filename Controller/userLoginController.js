@@ -33,6 +33,7 @@ const userLoginController = async (req, res, next) => {
               maxAge: 99704085200,
               httpOnly: true,
               secure: true,
+              sameSite: "none",
             });
           } else {
             respondDatas.requireLogin = true;

@@ -32,6 +32,7 @@ const userLoginController = async (req, res, next) => {
             res.cookie = res.cookie("userBlueChatApp", cookie.cookie, {
               maxAge: 99704085200,
               httpOnly: true,
+              secure: true,
             });
           } else {
             respondDatas.requireLogin = true;

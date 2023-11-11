@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const axios = require("axios");
 
 class DownLoadFile {
   constructor(url, filename) {
@@ -10,7 +11,11 @@ class DownLoadFile {
   async downFile() {
     return await new Promise(async (resolve) => {
       try {
-        const file = await fetch(this.url);
+        const file = await axios({
+          method: "get",
+          url: this.url,
+        });
+        console.log(file);
         if (file.statusText === "OK") {
           const file = fs.createWriteStream(`File/${this.filename}`);
           const request = http.get(this.url, function (response) {

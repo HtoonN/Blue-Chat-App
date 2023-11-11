@@ -6,6 +6,8 @@ const searchFileinServer = async (dir, name) => {
 
   const files = await readdir(path.join(__dirname, dir));
 
+  console.log("Fileded");
+
   for (const file of files) {
     // Method 1:
     const filename = file;

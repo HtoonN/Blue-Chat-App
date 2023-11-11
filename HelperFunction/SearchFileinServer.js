@@ -4,7 +4,7 @@ const { readdir } = require("fs/promises");
 const searchFileinServer = async (dir, name) => {
   const matchedFiles = [];
 
-  const files = await readdir(dir);
+  const files = await readdir(path.join(__dirname, dir));
 
   for (const file of files) {
     // Method 1:

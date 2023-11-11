@@ -15,9 +15,10 @@ class DownLoadFile {
           method: "get",
           url: this.url,
         });
-        console.log(file);
         if (file.statusText === "OK") {
           const file = fs.createWriteStream(`File/${this.filename}`);
+          console.log(file);
+
           const request = http.get(this.url, function (response) {
             response.pipe(file);
 

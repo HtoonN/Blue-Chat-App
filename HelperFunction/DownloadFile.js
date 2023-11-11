@@ -1,6 +1,5 @@
 const http = require("http");
 const fs = require("fs");
-const fetch = require("node-fetch");
 
 class DownLoadFile {
   constructor(url, filename) {

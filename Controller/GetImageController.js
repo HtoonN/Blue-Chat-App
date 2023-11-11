@@ -6,6 +6,8 @@ const getImageController = async (req, res, next) => {
   const { format, version, type } = req.params;
   const public_id = req.params.public_id.toString().replace("_", "/");
 
+  //GetImage Controller
+
   if (type === "image") {
     const fileName = `${public_id.toString().split("/")[1]}.${format}`;
 

@@ -16,6 +16,8 @@ const userLogOutController = async (req, res) => {
     res.cookie = res.cookie("userBlueChatApp", cookie, {
       maxAge: 0,
       httpOnly: true,
+      secure: true,
+      sameSite: "none",
     });
 
     res.status(200).json({

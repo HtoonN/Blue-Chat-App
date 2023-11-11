@@ -15,9 +15,7 @@ class DownLoadFile {
           method: "get",
           url: this.url,
         });
-
         if (file.statusText === "OK") {
-          console.log("This is file Ok and creating stream");
           const file = fs.createWriteStream(
             path.join(__dirname, `../File/${this.filename}`)
           );

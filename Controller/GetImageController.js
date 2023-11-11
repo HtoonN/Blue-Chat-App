@@ -13,6 +13,8 @@ const getImageController = async (req, res, next) => {
 
     const fileResult = await searchFileinServer("File", fileName);
 
+    console.log(fileResult);
+
     if (fileResult.length) {
       sendFileToUser(res, fileName, next);
     } else {

@@ -11,7 +11,7 @@ const getImageController = async (req, res, next) => {
   if (type === "image") {
     const fileName = `${public_id.toString().split("/")[1]}.${format}`;
 
-    const fileResult = await searchFileinServer("File", fileName);
+    const fileResult = await searchFileinServer("./File", fileName);
 
     console.log(fileResult);
 

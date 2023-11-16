@@ -5,7 +5,7 @@ const updateUserProfileController = async (req, res) => {
   const userId = req.user.userId.toString();
   const datas = req.query;
   const result = {};
-
+  console.log("UserUpdateProfileController");
   console.log(req.files);
   try {
     if (userId) {

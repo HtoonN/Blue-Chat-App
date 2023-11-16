@@ -13,6 +13,7 @@ class ManageCloudinary {
   async saveToCloudinary() {
     // let public_id = this.name.toString().split(".")[0];
     if (this.type === "image" || "video") {
+      console.log("Uplodaed File");
       return await cloudinary.uploader.upload(
         `File/${this.name}`,
         {
@@ -27,6 +28,7 @@ class ManageCloudinary {
           if (error) {
             console.log(error);
           } else {
+            console.log("Photo Uploaded");
             return result;
           }
         }

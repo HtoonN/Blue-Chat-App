@@ -10,7 +10,7 @@ const updateProfileImageUpload = async (file, flag, id) => {
     if (file) {
       const type = file.mimetype.toString().split("/")[0];
       const filename = file.filename.toString();
-      console.log("Save To Cloudinary");
+
       const result = await new ManageCloudinary(
         filename,
         type

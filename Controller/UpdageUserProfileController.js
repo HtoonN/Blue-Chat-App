@@ -16,7 +16,6 @@ const updateUserProfileController = async (req, res) => {
         );
 
         if (!Imgresult.error) {
-          console.log(Imgresult.data);
           datas.image = Imgresult.data;
           result.profileImage = Imgresult.data;
         }
